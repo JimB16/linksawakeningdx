@@ -14,6 +14,7 @@ includes  := $(PYTHON) $(poketools)/scan_includes.py
 #crystal11_obj := 
 
 crystal_obj := \
+wram.o \
 main.o
 
 all_obj := $(crystal_obj)
