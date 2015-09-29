@@ -107,60 +107,7 @@ INCBIN "baserom.gbc", 16384*19, 16384
 
 SECTION "bank20", ROMX, BANK[$14]
 
-; 2=opens shutters.  4=defeats all enemies.  6=a treasure chest appears at position 28.  8=a key falls at position 32.  A=a staircase will appear at position 18.  C=the miniboss flag is set, shutter opens, warp to start of dungeon is opened.
-; Events
-	const_def
-	const EVENT_0
-	const EVENT_1
-	const EVENT_2
-	const EVENT_3
-	const EVENT_4
-	const EVENT_5
-	const EVENT_6
-	const EVENT_7
-	const EVENT_8
-	const EVENT_9
-	const EVENT_A
-	const EVENT_B
-	const EVENT_C
-	const EVENT_D
-	const EVENT_E
-	const EVENT_F
-
-; 1=must defeat all enemies.  2=push a block.  3=push a trigger.  4=?  5=light all torches.  6=level 2 nightmare key puzzle, that is you need to destroy a Pols Voice first, then a keese, then a staflos.  7=push two blocks together, can be in any form as long as they are both movable blocks.  8=kill special enemies, which are defined as enemies that can't normally be destroyed like traps and sparks.  9=level 4 tile puzzle must be completed.  A=defeat boss 4 or 7 to open shutter door.  B=one way shutter, or throw somthing at it to open.  C=throw the horse heads at a wall to stand them up.  D=smash a chest to open, allways get a nightmare key, allways opens at a specific spot.  E="Fill in the holes with the rock that rolls".  F=fire an arrow at a statue, might be sprite related.
-; EventTriggers
-	const_def
-	const EVENT_TRIGGER_0
-	const EVENT_TRIGGER_1
-	const EVENT_TRIGGER_2
-
-EventData: ; 0x50000
-	db $00
-	db $00
-	db EVENT_2 << 4 | EVENT_TRIGGER_1
-	db EVENT_A << 4 | EVENT_TRIGGER_1
-	db $22, $00, $21, $00, $00, $00, $61, $00, $00, $61, $00, $00
-	db $00, $C1, $21, $63, $61, $21, $81, $00, $00, $00, $00, $00, $00, $00, $00, $00
-; 0x50020
-
-INCBIN "baserom.gbc", 16384*20+$20, $198a-$20
-
-; 0x51980
-	db "What a relief! I"
-	db "thought you^d   "
-	db "never wake up!  "
-	db "You were tossing"
-	db "and turning...  "
-	db "What?  Zelda?   "
-	db "No, my name^s   "
-	db "Marin!  You must"
-	db "still be feeling"
-	db "a little woozy. "
-	db "You are on      "
-	db "Koholi"
-	
-; 0x51990
-INCBIN "baserom.gbc", 16384*20+$1a40, $4000-$1a40
+INCLUDE "bank20.asm"
 
 
 
@@ -170,28 +117,7 @@ SECTION "bank21", ROMX, BANK[$15]
 INCLUDE "bank21.asm"
 
 
-
-SECTION "bank22", ROMX, BANK[$16]
-SpriteData: ; 0x58000
-	dw Sprite_59186
-	dw Sprite_5918D
-	dw Sprite_59192
-	dw Sprite_59195
-	dw $5198, $519B, $519E, $51A3
-	dw $51A4, $51A9, $51AA, $51AF, $51B4, $51B9, $51BE, $51BF
-; 0x58020
-
-INCBIN "baserom.gbc", 16384*22+$20, $1186-$20
-
-Sprite_59186: ; 0x59186
-	db $67, $29, $24, $35, $26, $7A, $FF
-Sprite_5918D: ; 0x5918D
-	db $46, $61, $53, $7A, $FF
-Sprite_59192: ; 0x59192
-	db $64, $0B, $FF
-Sprite_59195: ; 0x59195
-
-INCBIN "baserom.gbc", 16384*22+$1195, $4000-$1195
+INCLUDE "bank22.asm"
 
 
 
@@ -216,13 +142,13 @@ SECTION "bank27", ROMX, BANK[$1b]
 
 INCBIN "baserom.gbc", 16384*27, $4000
 
-SECTION "bank28", ROMX, BANK[$1c]
 
-INCBIN "baserom.gbc", 16384*28, $4000
+INCLUDE "bank28.asm"
 
-SECTION "bank29", ROMX, BANK[$1d]
 
-INCBIN "baserom.gbc", 16384*29, $4000
+INCLUDE "bank29.asm"
+
+
 
 SECTION "bank30", ROMX, BANK[$1e]
 
@@ -363,6 +289,5 @@ INCBIN "baserom.gbc", 16384*61, $254e
 SECTION "bank62", ROMX, BANK[62]
 ; empty bank
 
-SECTION "bank63", ROMX, BANK[63]
 
-INCBIN "baserom.gbc", 16384*63, $3b4b
+INCLUDE "bank63.asm"
