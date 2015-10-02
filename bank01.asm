@@ -1,3 +1,6 @@
+
+SECTION "bank1", ROMX, BANK[$1]
+
 ; 0x4000
         ld a, [$db96]
         rst $0

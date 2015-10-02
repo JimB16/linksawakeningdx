@@ -45,7 +45,7 @@ rst7a:
 
 asm_80:
         ld bc, $0030
-        call Function290b
+        call CopyBytes
         xor a
         ld [hff90], a
         ld [hff92], a

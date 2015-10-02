@@ -64,9 +64,9 @@ _Start: ; 0x150
         ld a, $18
         ld [$ffb5], a
         ei
-        ld a, $20
+        ld a, BANK(Function80854)
         ld [MBC5RomBank], a
-        call $4854
+        call Function80854
         jp Function35c
 ; 0x1da
 
@@ -143,9 +143,9 @@ Function1da:
         ld a, [$db96]
         cp $8
         jr c, .asm_261
-        ld a, $20
+        ld a, BANK(Function81263)
         ld [MBC5RomBank], a
-        call $5263
+        call Function81263
 
 .asm_261
         ld a, [$c17f]
@@ -187,9 +187,9 @@ Function1da:
         ld a, [$fffe]
         and a
         jr z, .asm_2b1
-        ld a, $20
+        ld a, BANK(Function82caf)
         ld [MBC5RomBank], a
-        call $6caf
+        call Function82caf
         jr .asm_2b4
 
 .asm_2b1
@@ -265,7 +265,7 @@ Function2d2:
 
 .asm_338
         ld a, $1
-        call Function807
+        call ChangeROMBank
         call $5ff1
 
 .asm_340
@@ -274,24 +274,24 @@ Function2d2:
         and a
         jr z, .asm_350
         ld a, $21
-        call Function807
+        call ChangeROMBank
         call $406e
 
 .asm_350
         xor a
         ld [$ddd2], a
         ld a, $1
-        call Function807
+        call ChangeROMBank
         call $600e
 
 Function35c:
 asm_35c:
         ld a, $1f
-        call Function807
+        call ChangeROMBank
         call $7f80
         ld a, $c
         call Functionb07
-        call Function807
+        call ChangeROMBank
         xor a
         ld [$fffd], a
         halt
@@ -436,9 +436,9 @@ Function416:
 
 Function42d:
         ld e, a
-        ld a, $20
+        ld a, BANK(Function80657)
         ld [MBC5RomBank], a
-        call $4657
+        call Function80657
         jp [hl]
 
 asm_437:
@@ -446,9 +446,9 @@ asm_437:
         ld a, $24
         ld [MBC5RomBank], a
         call $5c2c
-        ld a, $20
+        ld a, BANK(Function80577)
         ld [MBC5RomBank], a
-        call $4577
+        call Function80577
         ld a, $8
         ld [MBC5RomBank], a
         call Function2924
@@ -637,10 +637,10 @@ Function574:
         and a
         jr z, .asm_595
         ld a, $21
-        call Function807
+        call ChangeROMBank
         call $4000
         ld a, $24
-        call Function807
+        call ChangeROMBank
         call $5c1a
 
 .asm_595
@@ -654,7 +654,7 @@ Function574:
 
 .asm_5a8
         ld a, $28
-        call Function807
+        call ChangeROMBank
         call $4616
         pop af
         ld [$dbaf], a
@@ -710,9 +710,9 @@ Function5b9:
         ld a, [hfff7]
         cp $ff
         jr nz, .asm_62b
-        ld a, $20
+        ld a, BANK(Function80616)
         ld [MBC5RomBank], a
-        call $4616
+        call Function80616
         ld [MBC5RomBank], a
         jr .asm_63d
 
@@ -731,7 +731,7 @@ Function5b9:
 
 .asm_63d
         ld bc, $0040
-        call Function290b
+        call CopyBytes
 
 .asm_643
         ld a, [hff92]
@@ -775,7 +775,7 @@ Function5b9:
         ld l, $0
         add hl, bc
         ld bc, $0040
-        call Function290b
+        call CopyBytes
         ld a, [hff92]
         inc a
         ld [hff92], a
@@ -796,15 +796,15 @@ Function69a:
         ld a, [hfff7]
         cp $ff
         jr nz, .asm_6c7
-        ld a, $20
+        ld a, BANK(Function8075a)
         ld [MBC5RomBank], a
-        call $475a
+        call Function8075a
         xor a
         ld [$c10e], a
         ld [$c10f], a
         ld hl, $9000
         ld bc, $0000
-        call $4616
+        call Function80616
         ld c, $90
         ld b, h
         ld h, $0
@@ -869,7 +869,7 @@ Function69a:
         ld d, h
         pop hl
         ld bc, $0040
-        call Function290b
+        call CopyBytes
         ld a, [hff93]
         inc a
         ld [hff93], a
@@ -939,7 +939,7 @@ Function69a:
         ld d, h
         pop hl
         ld bc, $0040
-        call Function290b
+        call CopyBytes
         ld a, [$c10f]
         inc a
         ld [$c10f], a
@@ -1007,7 +1007,7 @@ Function7ce:
         call Functionb07
         ld [MBC5RomBank], a
         ld bc, $0040
-        call Function290b
+        call CopyBytes
         ld a, [hff90]
         cp $a
         jr z, .asm_803
@@ -1022,9 +1022,8 @@ Function7ce:
         xor a
         ld [hff90], a
         ret
-; 0x807
 
-Function807:
+ChangeROMBank: ; 0x807
 ; Change ROM Bank
         ld [$dbaf], a
         ld [MBC5RomBank], a
@@ -1037,9 +1036,8 @@ Function80e:
         ld [$dbaf], a
         ld [MBC5RomBank], a
         ret
-; 0x818
 
-Function818:
+RestoreROMBank: ; 0x818
         push af
         ld a, [$dbaf]
         ld [MBC5RomBank], a
@@ -1113,7 +1111,7 @@ Function821:
         ld hl, $7e00
         add hl, bc
         ld bc, $0040
-        call Function290b
+        call CopyBytes
         ld a, [hff92]
         inc a
         ld [hff92], a
@@ -1122,7 +1120,7 @@ Function821:
 
 Function89f:
         ld a, $1f
-        call Function807
+        call ChangeROMBank
         call $4006
         ld a, [hfff3]
         and a
@@ -1142,10 +1140,10 @@ Function89f:
 
 Function8c1:
         ld a, $1b
-        call Function807
+        call ChangeROMBank
         call $4006
         ld a, $1e
-        call Function807
+        call ChangeROMBank
         call $4006
 
 asm_8d1:
@@ -1153,9 +1151,9 @@ asm_8d1:
 ; 0x8d2
 
 Function8d2:
-        ld a, $20
+        ld a, BANK(Function82a38)
         ld [MBC5RomBank], a
-        call $6a38
+        call Function82a38
 asm_8da:
         ld a, [$dbaf]
         ld [MBC5RomBank], a
@@ -1163,40 +1161,41 @@ asm_8da:
 ; 0x8e1
 
 Function8e1:
-        ld a, $20
+        ld a, BANK(Function82ac9)
         ld [MBC5RomBank], a
-        call $6ac9
+        call Function82ac9
         jr asm_8da ; 0x8e9 $ef
 ; 0x8eb
 
 Function8eb:
-        ld a, $20
+        ld a, BANK(Function82bac)
         ld [MBC5RomBank], a
-        call $6bac
+        call Function82bac
         jr asm_8da ; 0x8f3 $e5
 ; 0x8f5
 
 Function8f5:
         push af
-        ld a, $20
+        ld a, BANK(Function82be4)
         ld [MBC5RomBank], a
-        call $6be4
+        call Function82be4
         jr Function96e
 
-        ld a, $20
+        ld a, BANK(Function82c08)
         ld [MBC5RomBank], a
-        call $6c08
+        call Function82c08
         jr .asm_912
 
-        ld a, $20
+        ld a, BANK(Function82c2c)
         ld [MBC5RomBank], a
-        call $6c2c
+        call Function82c2c
 
 .asm_912
         ld a, $1
         ld [MBC5RomBank], a
         ret
 
+Function918:
         push af
         ld b, $0
         ld a, [$ddd8]
@@ -1236,6 +1235,8 @@ Function8f5:
         ld [hli], a
         inc de
         inc de
+
+Function959:
         ld a, [de]
         ld [hli], a
         dec de
@@ -1263,9 +1264,9 @@ Function96e:
 
 Function973:
         push af
-        ld a, $20
+        ld a, BANK(Function82d16)
         ld [MBC5RomBank], a
-        call $6d16
+        call Function82d16
         jr Function96e ; 0x97c $f0
 ; 0x97e
 
@@ -1316,33 +1317,33 @@ Function994:
 
 Function9c3:
         push af
-        ld a, $20
+        ld a, BANK(Function80518)
         ld [MBC5RomBank], a
-        call $4518
+        call Function80518
         jr Function96e ; 0x9cc $a0
 ; 0x9ce
 
 Function9ce:
         push af
-        ld a, $20
+        ld a, BANK(Function80874)
         ld [MBC5RomBank], a
-        call $4874
+        call Function80874
         jr Function96e ; 0x9d7 $95
 ; 0x9d9
 
 Function9d9:
         push af
-        ld a, $20
+        ld a, BANK(Function80954)
         ld [MBC5RomBank], a
-        call $4954
+        call Function80954
         jp Function96e
 ; 0x9e5
 
 Function9e5:
         push af
-        ld a, $20
+        ld a, BANK(Function8082d)
         ld [MBC5RomBank], a
-        call $482d
+        call Function8082d
         jp Function96e
 ; 0x9f1
 
@@ -1356,7 +1357,7 @@ asm_9f1:
         add $80
         ld d, a
         ld bc, $0100
-        call Function290b
+        call CopyBytes
         pop hl
         jr asm_a1d
 
@@ -1389,7 +1390,7 @@ Functiona22:
         ld hl, $4f00
         ld de, $dcc0
         ld bc, $0020
-        call Function290b
+        call CopyBytes
         jp Function96e
 ; 0xa37
 
@@ -1435,9 +1436,9 @@ Functiona67:
 
 Functiona73:
         push af
-        ld a, $20
+        ld a, BANK(Function82d5a)
         ld [MBC5RomBank], a
-        call $6d5a
+        call Function82d5a
         jp Function96e
 ; 0xa7f
 
@@ -1452,7 +1453,7 @@ Functiona7f:
 Functiona8b:
         push af
         ld a, $f
-        call Function807
+        call ChangeROMBank
         call Function2318
         jp Function96e
 ; 0xa97
@@ -1460,11 +1461,11 @@ Functiona8b:
 Functiona97:
         push af
         ld a, $36
-        call Function807
+        call ChangeROMBank
         call $7071
 asm_aa0:
         pop af
-        call Function807
+        call ChangeROMBank
         ret
 ; 0xaa5
 
@@ -1497,7 +1498,7 @@ Functionac2:
 Functionace:
         push af
         ld a, $36
-        call Function807
+        call ChangeROMBank
         call $4a77
         jp Function96e
 ; 0xada
@@ -1555,7 +1556,7 @@ Functionb16:
         ld [MBC5RomBank], a
         ld a, $2
         ld [rSVBK], a
-        call Function290b
+        call CopyBytes
         xor a
         ld [rSVBK], a
         ld a, $20
@@ -1575,9 +1576,9 @@ Functionb2b:
         ld a, [hffd9]
         and $80
         jr nz, .asm_b47
-        ld a, $20
+        ld a, BANK(Function82e58)
         ld [MBC5RomBank], a
-        call $6e58
+        call Function82e58
         jr c, .asm_b50
 
 .asm_b47
@@ -1598,7 +1599,7 @@ Functionb2b:
 
 Functionb59:
         ld [MBC5RomBank], a
-        call Function290b
+        call CopyBytes
         ld a, $28
         ld [MBC5RomBank], a
         ret
@@ -1661,7 +1662,7 @@ Functionb92:
 Functionbb1:
         ld bc, $0168
         ld de, $d000
-        jp Function290b
+        jp CopyBytes
 ; 0xbba
 
 Functionbba:
@@ -1705,7 +1706,7 @@ Functionbec:
         ld a, $2
         ld [MBC5RomBank], a
         call Function1a4b
-        jp Function818
+        jp RestoreROMBank
 ; 0xbf7
 
 Functionbf7:
@@ -1764,7 +1765,7 @@ Functionc36:
         ld a, $c
         ld [MBC5RomBank], a
         ld bc, $0040
-        call Function290b
+        call CopyBytes
         ld a, $1
         ld [MBC5RomBank], a
         ret
@@ -2110,7 +2111,7 @@ Functiond1a:
         jr nz, .asm_dff
 
 .asm_e2d
-        jp Function818
+        jp RestoreROMBank
 ; 0xe30
 
 Functione30:
@@ -2186,7 +2187,7 @@ Functionecd:
 
 Functioned3:
         ld a, $1
-        call Function807
+        call ChangeROMBank
         jp $4000
 ; 0xedb
 
@@ -2196,7 +2197,7 @@ Functionedb:
 
 Functionede:
         ld a, $17
-        call Function807
+        call ChangeROMBank
         call $4ab1
         jp Function1016
 ; 0xee9
@@ -2209,7 +2210,7 @@ asm_ef0:
         push af
         call Function3984
         pop af
-        jp Function807
+        jp ChangeROMBank
 ; 0xef8
 
 Functionef8:
@@ -2242,32 +2243,32 @@ Functionf16:
         call $4c4b
         call $4abc
         ld a, $1
-        call Function807
+        call ChangeROMBank
         jp $4374
 ; 0xf29
 
 Functionf29:
-        ld a, $20
-        call Function807
-        jp $5910
+        ld a, BANK(Function81910) ; $20
+        call ChangeROMBank
+        jp Function81910
 ; 0xf31
 
 Functionf31:
         ld a, $28
-        call Function807
+        call ChangeROMBank
         call $4000
         jp Function1016
 ; 0xf3c
 
 Functionf3c:
         ld a, $37
-        call Function807
+        call ChangeROMBank
         jp $4000
 ; 0xf44
 
 Functionf44:
         ld a, $2
-        call Function807
+        call ChangeROMBank
         ld a, [$c19f]
         and a
         jr nz, .asm_f8b
@@ -2286,7 +2287,7 @@ Functionf44:
         ld a, $1
         ld [MBC5RomBank], a
         call $62b1
-        call Function818
+        call RestoreROMBank
 
 .asm_f71
         ld a, [$c19f]
@@ -2328,20 +2329,20 @@ Functionf44:
         res 7, [hl]
         call $595b
         ld a, $2
-        call Function807
+        call ChangeROMBank
         call $7943
         call $102f
         ld a, [$c15c]
         ld [$c3cf], a
-        ld a, $20
+        ld a, BANK(Function80b1f)
         ld [MBC5RomBank], a
-        call $4b1f
+        call Function80b1f
         ld a, $19
-        call Function807
+        call ChangeROMBank
         call $7abc
         call Function3984
         ld a, $2
-        call Function807
+        call ChangeROMBank
         call $54a7
         ld hl, $d601
         ld a, [$ffe7]
@@ -2361,25 +2362,25 @@ Functionf44:
         dec e
 
 .asm_1006
-        ld a, $20
+        ld a, BANK(Function81ca8)
         ld [MBC5RomBank], a
-        call $5ca8
+        call Function81ca8
 
 .asm_100e
         ld a, $14
-        call Function807
+        call ChangeROMBank
         call $54f5
 
 Function1016:
         ld a, $f
-        call Function807
+        call ChangeROMBank
 asm_101b:
         call Function2318
         ld a, [$fffe]
         and a
         ret z
         ld a, $24
-        call Function807
+        call ChangeROMBank
         jp $7405
 ; 0x102a
 
@@ -2424,7 +2425,7 @@ Function107b:
         ld a, $7
         ld [$db95], a
         ld a, $2
-        ld [$2100], a
+        ld [MBC5RomBank], a
         call $75a0
         call Function1d31
         call Function3984
@@ -2507,13 +2508,13 @@ Function114b:
 
 Function1151:
         ld a, $19
-        call Function807
+        call ChangeROMBank
         jp $5d6a
 ; 0x1159
 
 Function1159:
         ld a, $1
-        call Function807
+        call ChangeROMBank
         jp $41c5
 ; 0x1161
 
@@ -2524,7 +2525,7 @@ Function1161:
         and a
         ret z
         ld a, $2
-        call Function807
+        call ChangeROMBank
         jp $4290
 ; 0x1173
 
@@ -2685,9 +2686,9 @@ Function1173:
         call Function1320
 
 .asm_1289
-        ld a, $20
+        ld a, BANK(Function808ca)
         ld [MBC5RomBank], a
-        call $48ca
+        call Function808ca
         ld a, [$dbaf]
         ld [MBC5RomBank], a
         ret
@@ -2696,7 +2697,7 @@ Function1173:
 Function1298:
         ld c, a
         cp $1
-        jp z, $1527
+        jp z, Function1527
         cp $4
         jp z, Function12ea
         cp $2
@@ -2797,9 +2798,9 @@ Function133f:
         ld [$c15b], a
         ld a, [$db44]
         ld [$c15a], a
-        ld a, $20
+        ld a, BANK(Function80b4a)
         ld [MBC5RomBank], a
-        call $4b4a
+        call Function80b4a
         ld a, [$dbaf]
         ld [MBC5RomBank], a
         ret
@@ -2811,16 +2812,16 @@ Function1359:
         ret nc
         ld a, [$db4d]
         and a
-        jp z, $0c1c
+        jp z, Functionc1c
         sub $1
         daa
         ld [$db4d], a
         ld a, $2
         call Function142e
         ret c
-        ld a, $20
+        ld a, BANK(Function80b81)
         ld [MBC5RomBank], a
-        call $4b81
+        call Function80b81
         ld a, [$dbaf]
         ld [MBC5RomBank], a
         ret
@@ -2837,19 +2838,19 @@ Function1382:
         ld a, $1
         call Function142e
         ret c
-        ld a, $20
+        ld a, BANK(Function80c0b)
         ld [MBC5RomBank], a
-        call $4c0b
+        call Function80c0b
         ld a, [$dbaf]
         ld [MBC5RomBank], a
         ret
 ; 0x139c
 
-Function139c:
+Unknown_139c:
+        db $00, $00, $00, $00, $00, $00, $00, $00, $20, $e0, $00, $00, $00, $00, $e0, $20
+        db $30, $d0, $00, $00, $40, $c0, $00, $00, $00, $00, $d0, $30, $00
+; 0x13b9
 
-
-
-INCBIN "baserom.gbc", $139c, $13b9-$139c
 
 
 Function13b9:
@@ -2868,7 +2869,7 @@ Function13bc:
         ld [$c14c], a
         ld a, [$db45]
         and a
-        jp z, $0c1c
+        jp z, Functionc1c
         sub $1
         daa
         ld [$db45], a
@@ -2937,7 +2938,7 @@ Function142e:
         ld a, [$ff9e]
         ld c, a
         ld b, $0
-        ld hl, $139c
+        ld hl, Unknown_139c
         add hl, bc
         ld a, [$ff98]
         add [hl]
@@ -3006,27 +3007,22 @@ Function148c:
 .asm_14a6
         ld a, [$db4c]
         and a
-        jp z, $0c1c
+        jp z, Functionc1c
         ld a, $8
         call Function3b7d
         ret c
-        ld a, $20
+        ld a, BANK(Function80c53)
         ld [MBC5RomBank], a
-        call $4c53
+        call Function80c53
         ld a, [$dbaf]
         ld [MBC5RomBank], a
         ret
 ; 0x14c2
 
 Unknown_14c2:
-        inc e
-        db $e4
-        nop
-        nop
-        nop
-        nop
-        db $e4
-        inc e
+        db $1c, $e4, $00, $00
+Unknown_14c6:
+        db $00, $00, $e4, $1c
 
 Function14ca:
         ld a, [$c130]
@@ -3058,7 +3054,7 @@ Function14ca:
         ld [$ffa3], a
         call Function219f
         ld a, $2
-        call Function807
+        call ChangeROMBank
         jp $6c91
 
 Function1507:
@@ -3070,11 +3066,11 @@ Function1507:
         ld a, [$ff9e]
         ld e, a
         ld d, b
-        ld hl, $14c2
+        ld hl, Unknown_14c2
         add hl, de
         ld a, [hl]
         ld [$ff9a], a
-        ld hl, $14c6
+        ld hl, Unknown_14c6
         add hl, de
         ld a, [hl]
         ld [$ff9b], a
@@ -3159,7 +3155,7 @@ Function158e:
         ld a, [$fafa]
         call Function15ae
         ld a, $2
-        jp Function807
+        jp ChangeROMBank
 ; 0x15ae
 
 Function15ae:
@@ -3503,7 +3499,7 @@ Function1793:
         bit 7, a
         jp z, .asm_1813
         ld a, $2
-        call Function807
+        call ChangeROMBank
         call $5330
         ld a, [$c19b]
         and $7f
@@ -3520,7 +3516,7 @@ Function1793:
         ld a, $d
         ld [$fff4], a
         ld a, $2
-        call Function807
+        call ChangeROMBank
         call $53ab
 
 .asm_1813
@@ -3530,18 +3526,18 @@ Function1793:
 ; 0x1818
 
 Function1818:
-        ld a, $20
+        ld a, BANK(Function80ab3)
         ld [MBC5RomBank], a
-        call $4ab3
+        call Function80ab3
         ld a, [$dbaf]
         ld [MBC5RomBank], a
         ret
 ; 0x1827
 
 Function1827:
-        ld a, $20
+        ld a, BANK(Function809ba)
         ld [MBC5RomBank], a
-        call $49ba
+        call Function809ba
         ld a, [$dbaf]
         ld [MBC5RomBank], a
         ret
@@ -3582,7 +3578,7 @@ Function1836:
         jr z, .asm_1897
         push af
         ld a, $4
-        call Function807
+        call ChangeROMBank
         pop af
         call $7a6b
         ld hl, $db6e
@@ -3672,7 +3668,7 @@ Function1836:
 .asm_1908
         ld c, a
         ld a, $14
-        call Function807
+        call ChangeROMBank
         push hl
         ld a, [$fff7]
         swap a
@@ -3721,7 +3717,7 @@ Function1836:
         cp $a
         jr nc, .asm_196d
         ld a, $2
-        call Function807
+        call ChangeROMBank
         call $672a
         ld a, $30
         ld [$ffb4], a
@@ -3849,27 +3845,26 @@ Function19dc:
         ld [$d47e], a
         ld a, $36
         jp Function237c
-; 0x1a1d
 
-Function1a1d:
-        ld a, $20
+Function1a1d: ; 0x1a1d
+        ld a, BANK(Function82c57) ; $20
         ld [MBC5RomBank], a
-        call $6c57
-        ld a, $20
+        call Function82c57
+        ld a, BANK(Function815d6) ; $20
         ld [MBC5RomBank], a
-        call $55d6
+        call Function815d6
         ld a, [$dbaf]
         ld [MBC5RomBank], a
         ret
 ; 0x1a34
 
 Function1a34:
-        ld a, $20
+        ld a, BANK(Function82c82) ; $20
         ld [MBC5RomBank], a
-        call $6c82
-        ld a, $20
+        call Function82c82
+        ld a, BANK(Function81647) ; $20
         ld [MBC5RomBank], a
-        call $5647
+        call Function81647 ; $5647
         ld a, [$dbaf]
         ld [MBC5RomBank], a
         ret
@@ -3991,7 +3986,7 @@ Function1ac7:
         rl b
         add hl, bc
         ld bc, $0040
-        jp Function290b
+        jp CopyBytes
 ; 0x1b00
 
 Function1b00:
@@ -4026,7 +4021,7 @@ Function1b08:
         ld a, [$d009]
         ld d, a
         ld bc, $0020
-        jp Function290b
+        jp CopyBytes
 
 .asm_1b40
         ret
@@ -4068,31 +4063,31 @@ asm_1b62:
 
 asm_1b7d:
         cp $1
-        jp z, $3f8a
+        jp z, Function3f8a
         cp $2
-        jp z, $3fa0
+        jp z, Function3fa0
         cp $3
-        jp z, $1eb7
+        jp z, Function1eb7
         cp $4
-        jp z, $1ebe
+        jp z, Function1ebe
         cp $8
-        jp z, $1e6b
+        jp z, Function1e6b
         cp $9
-        jp z, $1ea3
+        jp z, Function1ea3
         cp $a
-        jp z, $1e2d
+        jp z, Function1e2d
         cp $b
-        jp z, $1e8f
+        jp z, Function1e8f
         cp $c
-        jp z, $1e35
+        jp z, Function1e35
         cp $d
-        jp z, $1e03
+        jp z, Function1e03
         cp $e
         jr z, .asm_1bc0
         cp $f
-        jp z, $1df2
+        jp z, Function1df2
         cp $10
-        jp z, $1deb
+        jp z, Function1deb
         jp Function1d31
 
 .asm_1bc0
@@ -4192,27 +4187,27 @@ Function1c4c:
 
 Function1c4f:
         ld bc, $0040
-        call Function290b
+        call CopyBytes
         ld a, [$fff7]
         cp $ff
         jr nz, .asm_1c82
-        ld a, $20
+        ld a, BANK(Function807f7)
         ld [MBC5RomBank], a
         ld b, $1
-        call $47f7
+        call Function807f7
         jr z, .asm_1c6d
         ld [MBC5RomBank], a
-        call Function290b
+        call CopyBytes
 
 .asm_1c6d
-        ld a, $20
+        ld a, BANK(Function807f7)
         ld [MBC5RomBank], a
         ld b, $0
-        call $47f7
+        call Function807f7
         jr z, .asm_1c82
         ld [MBC5RomBank], a
         ld de, $96c0
-        call Function290b
+        call CopyBytes
 
 .asm_1c82
         jp Function1d31
@@ -4336,9 +4331,9 @@ Function1d0d:
 ; 0x1d21
 
 Function1d21:
-        ld a, $20
+        ld a, BANK(Function81501)
         ld [MBC5RomBank], a
-        call $5501
+        call Function81501
         ld a, $c
         call Functionb07
         ld [MBC5RomBank], a
@@ -4476,12 +4471,13 @@ Function1d31:
 Function1deb:
         ld hl, $4f00
         ld a, $e
-        jr .asm_1df7
+        jr asm_1df7
 
+Function1df2:
         ld a, $12
         ld hl, $6080
 
-.asm_1df7
+asm_1df7
         ld [MBC5RomBank], a
         ld de, $8400
         ld bc, $0040
@@ -4512,8 +4508,9 @@ Function1e03:
 Function1e2d:
         ld hl, $68c0
         ld de, $88e0
-        jr .asm_1ea9
+        jr asm_1ea9
 
+Function1e35:
         ld a, $11
         call Functionb07
         ld [MBC5RomBank], a
@@ -4530,11 +4527,11 @@ Function1e2d:
         add hl, de
         push hl
         ld hl, $5000
-.asm_1e57
+asm_1e57
         add hl, de
         pop de
         ld bc, $0040
-        call Function290b
+        call CopyBytes
         xor a
         ld [$ffa5], a
         ld a, $c
@@ -4542,6 +4539,7 @@ Function1e2d:
         ld [MBC5RomBank], a
         ret
 
+Function1e6b:
         ld a, $13
         call Functionb07
         ld [MBC5RomBank], a
@@ -4558,8 +4556,9 @@ Function1e2d:
         add hl, de
         push hl
         ld hl, $4d00
-        jr .asm_1e57
+        jr asm_1e57
 
+Function1e8f:
         ld hl, $48e0
         ld de, $88e0
         ld a, $c
@@ -4568,10 +4567,11 @@ Function1e2d:
         ld bc, $0020
         jp Function1f3d
 
+Function1ea3:
         ld hl, $68e0
         ld de, $8ca0
 
-.asm_1ea9
+asm_1ea9
         ld a, $c
         call Functionb07
         ld [MBC5RomBank], a
@@ -4582,12 +4582,13 @@ Function1e2d:
 Function1eb7:
         ld hl, $7f00
         ld a, $12
-        jr .asm_1ec3
+        jr asm_1ec3
 
+Function1ebe:
         ld hl, $4c40
         ld a, $d
 
-.asm_1ec3
+asm_1ec3
         call Functionb07
         ld [MBC5RomBank], a
         ld de, $9140
@@ -4659,7 +4660,7 @@ Function1ed9:
         ld a, [hli]
         ld h, [hl]
         ld l, a
-        jp Function290b
+        jp CopyBytes
 
 .asm_1f37
         jp Function1d31
@@ -4669,7 +4670,7 @@ Function1f3a:
         ld bc, $0040
 
 Function1f3d:
-        call Function290b
+        call CopyBytes
 
 Function1f40:
         xor a
@@ -4687,9 +4688,9 @@ INCBIN "baserom.gbc", $1f4b, $2171-$1f4b
 
 Function2171:
         ld a, $14
-        ld [$2100], a
+        ld [MBC5RomBank], a
         call $5523
-        jp Function818
+        jp RestoreROMBank
 ; 0x217c
 
 Function217c:
@@ -4709,7 +4710,7 @@ Function217c:
         ld b, d
         ld e, $1
         ld a, $3
-        call Function807
+        call ChangeROMBank
         jp $578c
 ; 0x219f
 
@@ -4815,7 +4816,7 @@ Function2318:
         xor b
         inc hl
         ld a, $14
-        ld [$2100], a
+        ld [MBC5RomBank], a
         jp $5446
 ; 0x236a
 
@@ -4875,7 +4876,7 @@ Function23a8:
         cp $8
         ret c
         ld a, $21
-        ld [$2100], a
+        ld [MBC5RomBank], a
         jp $53cf
 ; 0x23c9
 
@@ -4957,14 +4958,14 @@ Function23db:
         ld a, [hl]
         ld [bc], a
         ld a, $1
-        ld [$ff4f], a
+        ld [rVBK], a
         ld a, $2
-        ld [$ff70], a
+        ld [rSVBK], a
         ld a, [hl]
         ld [bc], a
         xor a
-        ld [$ff4f], a
-        ld [$ff70], a
+        ld [rVBK], a
+        ld [rSVBK], a
         inc bc
         ld a, l
         add $1
@@ -5001,7 +5002,7 @@ Function23db:
 
 Function2474:
         ld a, $1c
-        ld [$2100], a
+        ld [MBC5RomBank], a
         jp $4a2c
 ; 0x247c
 
@@ -5124,7 +5125,7 @@ Function259b:
         ld [$ffd8], a
         ld e, a
         ld a, $1c
-        ld [$2100], a
+        ld [MBC5RomBank], a
         ld hl, $4641
         add hl, de
         ld e, [hl]
@@ -5137,7 +5138,7 @@ Function259b:
         rl d
         sla e
         rl d
-        call Function818
+        call RestoreROMBank
         ld hl, $5000
         add hl, de
         ld c, l
@@ -5153,7 +5154,7 @@ Function259b:
         ld [hl], $0
         push hl
         ld a, $1c
-        ld [$2100], a
+        ld [MBC5RomBank], a
         ld a, [$ffd8]
         ld e, a
         ld d, $0
@@ -5234,7 +5235,7 @@ Function2688:
         bit 5, a
         jr z, .asm_270b
         ld a, $1c
-        ld [$2100], a
+        ld [MBC5RomBank], a
         ld a, [$db95]
         cp $7
         jp z, Function2782
@@ -5396,7 +5397,7 @@ Function278a:
         and $10
         ret z
         ld a, $17
-        ld [$2100], a
+        ld [MBC5RomBank], a
         jp $7d52
 ; 0x27ae
 
@@ -5407,7 +5408,7 @@ Function27ae:
 
 Function27b2:
         ld a, $17
-        ld [$2100], a
+        ld [MBC5RomBank], a
         jp $7d02
 ; 0x27ba
 
@@ -5433,11 +5434,11 @@ Function27c7:
 
 Function27d4:
         ld a, $2
-        ld [$2100], a
+        ld [MBC5RomBank], a
         push bc
         call $4146
         pop bc
-        jp Function818
+        jp RestoreROMBank
 ; 0x27e1
 
 Function27e1:
@@ -5453,18 +5454,18 @@ Function27e9:
         and a
         jr nz, .asm_27f6
         ld a, $1f
-        ld [$2100], a
+        ld [MBC5RomBank], a
         call $4003
 
 .asm_27f6
-        jp Function818
+        jp RestoreROMBank
 ; 0x27f9
 
 Function27f9:
         ld a, $1
-        ld [$2100], a
+        ld [MBC5RomBank], a
         call $5f2a
-        jp Function818
+        jp RestoreROMBank
 ; 0x2804
 
 Function2804:
@@ -5620,7 +5621,7 @@ Function28c6:
 
 Function28df:
         ld a, $1
-        call Function807
+        call ChangeROMBank
         jp $6da6
 ; 0x28e7
 
@@ -5648,14 +5649,13 @@ asm_28f3:
 
 Function28ff:
         ld [MBC5RomBank], a
-        call Function290b
+        call CopyBytes
         ld a, $1
         ld [MBC5RomBank], a
         ret
-; 0x290b
 
 
-Function290b:
+CopyBytes: ; 0x290b:
 ; Copy 'bc' bytes from 'hl' to 'de'
 .loop
         ld a, [hli]
@@ -5871,7 +5871,7 @@ INCBIN "baserom.gbc", $29e4, $2a09-$29e4
 
 Function2a09:
         ld a, $8
-        ld [$2100], a
+        ld [MBC5RomBank], a
         ld hl, $4ad4
         ld a, [$fff7]
         cp $ff
@@ -5886,7 +5886,7 @@ Function2a09:
 
 Function2a1d:
         call Function2a09
-        jp Function818
+        jp RestoreROMBank
 ; 0x2a23
 
 
@@ -5899,19 +5899,19 @@ Function2bc6:
         ld hl, $4000
         ld de, $8000
         ld bc, $0400
-        call Function290b
+        call CopyBytes
         ld a, $c
         call Function80e
         ld hl, $4800
         ld de, $8800
         ld bc, $1000
-        call Function290b
+        call CopyBytes
         ld hl, $47a0
         ld de, $8e00
         ld bc, $0020
-        call Function290b
+        call CopyBytes
         ld a, $1
-        call Function807
+        call ChangeROMBank
         ret
 ; 0x2bfa
 
@@ -5921,46 +5921,46 @@ INCBIN "baserom.gbc", $2bfa, $3939-$2bfa
 
 Function3939:
         ld a, $3
-        ld [$2100], a
+        ld [MBC5RomBank], a
         call $53df
-        jp Function818
+        jp RestoreROMBank
 ; 0x3944
 
 Function3944:
         ld a, $14
-        ld [$2100], a
+        ld [MBC5RomBank], a
         call $54a9
-        jp Function818
+        jp RestoreROMBank
 ; 0x394f
 
 Function394f:
        ld a, $1
-        call Function807
+        call ChangeROMBank
         call $6076
         ld a, $2
-        jp Function807
+        jp ChangeROMBank
 ; 0x395c
 
 Function395c:
         ld a, $3
-        ld [$2100], a
+        ld [MBC5RomBank], a
         call $485b
-        jp Function818
+        jp RestoreROMBank
 ; 0x3967
 
 Function3967:
         ld a, $3
-        ld [$2100], a
+        ld [MBC5RomBank], a
         call $7ef7
-        jp Function818
+        jp RestoreROMBank
 ; 0x3972
 
 Function3972:
         ld a, $14
-        ld [$2100], a
+        ld [MBC5RomBank], a
         call $5344
         ld a, $3
-        ld [$2100], a
+        ld [MBC5RomBank], a
         ret
 ; 0x3980
 
@@ -6004,13 +6004,13 @@ Function3984:
         and $3
         ld e, a
         ld d, $0
-        ld hl, $3980
+        ld hl, Unknown_3980
         add hl, de
         ld a, [hl]
         ld [$c3c0], a
-        ld a, $20
+        ld a, BANK(Function80303)
         ld [MBC5RomBank], a
-        call $4303
+        call Function80303
         xor a
         ld [MBC5RomBank], a
         ld a, [$c19f]
@@ -6019,10 +6019,10 @@ Function3984:
         ld [$c1ad], a
 
 .asm_39da
-        ld a, $20
+        ld a, BANK(Function8235e)
         ld [$dbaf], a
         ld [MBC5RomBank], a
-        call $635e
+        call Function8235e
         ld b, $0
         ld c, $f
 .asm_39e9
@@ -6124,12 +6124,12 @@ Function3a0f:
 ; 0x3a84
 
 Function3a84:
-        ld a, $20
+        ld a, BANK(Unknown_80000)
         ld [MBC5RomBank], a
         ld a, [$ffeb]
         ld e, a
         ld d, b
-        ld hl, $4000
+        ld hl, Unknown_80000
         add hl, de
         add hl, de
         add hl, de
@@ -6148,16 +6148,86 @@ Function3a84:
 Function3aa1:
 
 
-INCBIN "baserom.gbc", $3aa1, $3b7d-$3aa1
+INCBIN "baserom.gbc", $3aa1, $3b0f-$3aa1
+
+Function3b0f:
+        ld a, $2
+        ld [MBC5RomBank], a
+        call $763a
+        jp RestoreROMBank
+; 0x3b1a
+
+Function3b1a:
+        ld a, $3
+        ld [MBC5RomBank], a
+        call $7889
+        jp RestoreROMBank
+; 0x3b25
+
+Function3b25:
+        ld a, $3
+        ld [MBC5RomBank], a
+        call $7ca7
+        jp RestoreROMBank
+; 0x3b30
+
+Function3b30:
+        ld a, $3
+        ld [MBC5RomBank], a
+        call $6e1d
+        jp RestoreROMBank
+; 0x3b3b
+
+Function3b3b:
+        ld a, $3
+        ld [MBC5RomBank], a
+        call $6c60
+        jp RestoreROMBank
+; 0x3b46
+
+Function3b46:
+        ld a, $3
+        ld [MBC5RomBank], a
+        call $6bd3
+        jp RestoreROMBank
+; 0x3b51
+
+Function3b51:
+        ld a, $3
+        ld [MBC5RomBank], a
+        call $6c6c
+        jp RestoreROMBank
+; 0x3b5c
+
+Function3b5c:
+        ld a, $3
+        ld [MBC5RomBank], a
+        call $73e3
+        jp RestoreROMBank
+; 0x3b67
+
+Function3b67:
+        ld a, $3
+        ld [MBC5RomBank], a
+        call $6e20
+        jp RestoreROMBank
+; 0x3b72
+
+Function3b72:
+        ld a, $3
+        ld [MBC5RomBank], a
+        call $7598
+        jp RestoreROMBank
+; 0x3b7d
 
 Function3b7d:
         push af
         ld a, $3
-        ld [$2100], a
+        ld [MBC5RomBank], a
         pop af
         call $64c6
         rr l
-        call Function818
+        call RestoreROMBank
         rl l
         ret
 ; 0x3b8f
@@ -6165,27 +6235,27 @@ Function3b7d:
 Function3b8f:
         push af
         ld a, $3
-        ld [$2100], a
+        ld [MBC5RomBank], a
         pop af
         call $64c8
         rr l
-        call Function818
+        call RestoreROMBank
         rl l
         ret
 ; 0x3ba1
 
 Function3ba1:
-        ld hl, $2100
+        ld hl, MBC5RomBank
         ld [hl], $3
         call $7ec0
-        jp Function818
+        jp RestoreROMBank
 ; 0x3bac
 
 Function3bac:
-        ld hl, $2100
+        ld hl, MBC5RomBank
         ld [hl], $3
         call $7e3e
-        jp Function818
+        jp RestoreROMBank
 ; 0x3bb7
 
 Function3bb7:
@@ -6308,11 +6378,11 @@ asm_3c5a:
         ld c, a
         ld b, $0
         ld a, $15
-        ld [$2100], a
+        ld [MBC5RomBank], a
         call $795f
 asm_3c68:
         call $7997
-        jp Function818
+        jp RestoreROMBank
 ; 0x3c6e
 
 Function3c6e:
@@ -6386,7 +6456,7 @@ Function3c6e:
 
 Function3cd0:
         ld a, $15
-        ld [$2100], a
+        ld [MBC5RomBank], a
         jr asm_3c68 ; 0x3cd5 $91
 ; 0x3cd7
 
@@ -6471,9 +6541,9 @@ Function3ced:
         ld a, [$c123]
         ld c, a
         ld a, $15
-        ld [$2100], a
+        ld [MBC5RomBank], a
         call $795f
-        jp Function818
+        jp RestoreROMBank
 
 asm_3d49:
         ld a, [$c123]
@@ -6540,7 +6610,396 @@ Function3d81:
         ret
 ; 0x3d97
 
+Function3d97:
+        ld hl, MBC5RomBank
+        ld [hl], $15
+        call $7966
+        jp RestoreROMBank
+; 0x3da2
+
+Function3da2:
+        ld hl, MBC5RomBank
+        ld [hl], $4
+        call $5a1a
+        jp RestoreROMBank
+; 0x3dad
+
+Function3dad:
+        ld hl, MBC5RomBank
+        ld [hl], $4
+        call $5690
+        jp RestoreROMBank
+; 0x3db8
+
+Function3db8:
+        ld hl, MBC5RomBank
+        ld [hl], $4
+        call $504b
+        jp RestoreROMBank
+; 0x3dc3
+
+Function3dc3:
+        ld hl, MBC5RomBank
+        ld [hl], $4
+        call $49bd
+        jp RestoreROMBank
+; 0x3dce
+
+Function3dce:
+        ld hl, MBC5RomBank
+        ld [hl], $36
+        call $72c6
+        jp RestoreROMBank
+; 0x3dd9
+
+Function3dd9:
+        ld hl, MBC5RomBank
+        ld [hl], $5
+        call $6cdf
+        jp RestoreROMBank
+; 0x3de4
+
+Function3de4:
+        ld hl, MBC5RomBank
+        ld [hl], $5
+        call $6831
+        jp RestoreROMBank
+; 0x3def
+
+Function3def:
+        ld hl, MBC5RomBank
+        ld [hl], $5
+        call $631b
+        jp RestoreROMBank
+; 0x3dfa
+
+Function3dfa:
+        ld hl, MBC5RomBank
+        ld [hl], $5
+        call $5a1e
+        jp RestoreROMBank
+; 0x3e05
+
+Function3e05:
+        ld hl, MBC5RomBank
+        ld [hl], $5
+        call $556b
+        jp RestoreROMBank
+; 0x3e10
+
+Function3e10:
+        ld a, [$dbaf]
+        push af
+        ld a, $2
+        call ChangeROMBank
+        call $6c91
+        pop af
+        jp ChangeROMBank
+; 0x3e20
+
+Function3e20:
+        ld hl, MBC5RomBank
+        ld [hl], $4
+        call $5c63
+        jp RestoreROMBank
+; 0x3e2b
+
+Function3e2b:
+        ld hl, MBC5RomBank
+        ld [hl], $3
+        call $5400
+        jp RestoreROMBank
+; 0x3e36
+
+Function3e36:
+        ld hl, MBC5RomBank
+        ld [hl], $2
+        call $62ef
+        call $6435
+        jp RestoreROMBank
+; 0x3e44
+
+Function3e44:
+        ld a, $2
+        call ChangeROMBank
+        call $41d0
+        ld a, $3
+        jp ChangeROMBank
+; 0x3e51
+
+Function3e51:
+        ld hl, MBC5RomBank
+        ld [hl], $20
+        ld c, $1
+        ld b, $0
+        ld e, $ff
+        call $5ca8
+        jp RestoreROMBank
+; 0x3e62
+
+Function3e62:
+        ld hl, MBC5RomBank
+        ld [hl], $3
+        call $646e
+        jp RestoreROMBank
+; 0x3e6d
+
+Function3e6d:
+        ld a, $6
+        call ChangeROMBank
+        call $7838
+        ld a, $3
+        jp ChangeROMBank
+; 0x3e7a
+
+Function3e7a:
+        ld e, $10
+        ld hl, $c280
+.asm_3e7f
+        xor a
+        ld [hli], a
+        dec e
+        jr nz, .asm_3e7f
+        ret
+; 0x3e85
+
+Function3e85:
+        ld hl, $c4a0
+        add hl, bc
+        ld a, [hl]
+        and a
+        ret z
+        ld a, [$ffe7]
+        xor c
+        and $3
+        ret nz
+        ld a, [$ffee]
+        ld [$ffd7], a
+        ld a, [$ffec]
+        ld [$ffd8], a
+        ld a, $8
+        call Functioncc3
+        ld hl, $c520
+        add hl, de
+        ld [hl], $f
+        ret
+; 0x3ea6
+
+Function3ea6:
+        ld hl, $c3f0
+        add hl, bc
+        ld a, [hl]
+        bit 7, a
+        jr z, .asm_3eb1
+        cpl
+        inc a
+
+.asm_3eb1
+        ld [$ffd7], a
+        ld hl, $c400
+        add hl, bc
+        ld a, [hl]
+        bit 7, a
+        jr z, .asm_3ebe
+        cpl
+        inc a
+
+.asm_3ebe
+        ld e, $3
+        ld hl, $ffd7
+        cp [hl]
+        jr c, .asm_3ec8
+        ld e, $c
+
+.asm_3ec8
+        ld a, e
+        ld hl, $c2a0
+        add hl, bc
+        and [hl]
+        jr z, .asm_3ed5
+        ld hl, $c410
+        add hl, bc
+        ld [hl], b
+
+.asm_3ed5
+        ret
+; 0x3ed6
+
+Unknown_3ed6:
+        or b
+        or h
+        or c
+        or d
+        or e
+        or [hl]
+        cp d
+        cp h
+        cp b
+        ld hl, $c14f
+        ld a, [$c124]
+        or [hl]
+        ret nz
+        ld a, [$c165]
+        and a
+        jr z, .asm_3ef2
+        dec a
+        ld [$c165], a
+        ret
+
+.asm_3ef2
+        ld a, [$c1bd]
+        and a
+        ret nz
+        inc a
+        ld [$c1bd], a
+        ld hl, $c430
+        add hl, bc
+        ld a, [hl]
+        and $4
+        ld a, $19
+        jr z, .asm_3f08
+        ld a, $50
+
+.asm_3f08
+        ld [$d368], a
+        ld [$ffbd], a
+        ld a, [$c16b]
+        cp $4
+        ret nz
+        ld a, [$ffeb]
+        cp $87
+        jr nz, .asm_3f1d
+        ld a, $da
+        jr .asm_3f3c
+
+.asm_3f1d
+        cp $bc
+        jr nz, .asm_3f25
+        ld a, $26
+        jr .asm_3f3c
+
+.asm_3f25
+        ld hl, $c430
+        add hl, bc
+        ld a, [hl]
+        and $4
+        ret nz
+        ld a, [$fff7]
+        cp $ff
+        ret z
+        cp $5
+        ret z
+        ld e, a
+        ld d, b
+        ld hl, Unknown_3ed6
+        add hl, de
+        ld a, [hl]
+
+.asm_3f3c
+        jp Function237c
+; 0x3f3f
+
+Unknown_3f3f:
+        db $01, $02, $04, $08, $10, $20, $40, $80
+; 0x3f47
+
+Function3f47:
+        ld a, $3
+        ld [$c113], a
+        ld [MBC5RomBank], a
+        call $55c6
+        call RestoreROMBank
+        ld hl, $c460
+        add hl, bc
+        ld a, [hl]
+        cp $ff
+        jr z, .asm_3f84
+        push af
+        ld a, [$dbb5]
+        ld e, a
+        ld d, b
+        inc a
+        ld [$dbb5], a
+        ld a, [hl]
+        ld hl, $dbb6
+        add hl, de
+        ld [hl], a
+        pop af
+        cp $8
+        jr nc, .asm_3f84
+        ld e, a
+        ld d, b
+        ld hl, Unknown_3f3f
+        add hl, de
+        ld a, [$fff6]
+        ld e, a
+        ld d, b
+        ld a, [hl]
+        ld hl, $cf00
+        add hl, de
+        or [hl]
+        ld [hl], a
+
+.asm_3f84
+        ld hl, $c280
+        add hl, bc
+        ld [hl], b
+        ret
+; 0x3f8a
+
+Function3f8a:
+        ld a, $5
+        ld [MBC5RomBank], a
+        ld hl, $59de
+        ld de, $8460
+        ld bc, $0010
+        call CopyBytes
+        ld hl, $59ee
+        jr asm_3fb4
+
+Function3fa0:
+        ld a, $5
+        ld [MBC5RomBank], a
+        ld hl, $59fe
+        ld de, $8460
+        ld bc, $0010
+        call CopyBytes
+        ld hl, $5a0e
+
+asm_3fb4
+        ld de, $8480
+        ld bc, $0010
+        call CopyBytes
+        xor a
+        ld [$ffa5], a
+        ld a, $c
+        ld [MBC5RomBank], a
+        jp Function1d31
+; 0x3fc8
+
+Function3fc8:
+        ld b, $34
+        ld a, [$fffe]
+        and a
+        jr z, .asm_3fd0
+        inc b
+
+.asm_3fd0
+        ld a, b
+        ld [MBC5RomBank], a
+        ld hl, $4000
+        ld de, $8400
+        ld bc, $0400
+        call CopyBytes
+        ld a, $20
+        ld [MBC5RomBank], a
+        ret
+; 0x3fe6
+
+Function3fe6:
+        ld [MBC5RomBank], a
+        ret
+; 0x3fea
 
 
-INCBIN "baserom.gbc", $3d97, $4000-$3d97
-
+INCBIN "baserom.gbc", $3fea, $4000-$3fea

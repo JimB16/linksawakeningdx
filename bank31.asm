@@ -1,3 +1,6 @@
+
+SECTION "bank31", ROMX, BANK[$1f]
+
 ; 0x7c000
 
 Function7c000:

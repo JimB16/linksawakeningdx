@@ -1,3 +1,6 @@
+
+SECTION "bank21", ROMX, BANK[$15]
+
 ; $15:$0000 = 0x54000
 
 Function54000:

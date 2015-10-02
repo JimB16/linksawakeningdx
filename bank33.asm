@@ -1,3 +1,6 @@
+
+SECTION "bank33", ROMX, BANK[$21]
+
 ; 0x84000
 
 Function84000:
@@ -102,7 +105,7 @@ Function8406e:
         push bc
         push de
         push hl
-        call Function290b
+        call CopyBytes
         pop hl
         pop de
         pop bc
@@ -110,7 +113,7 @@ Function8406e:
 .asm_8409f
         ld a, $2
         ld [rSVBK], a
-        call Function290b
+        call CopyBytes
         xor a
         ld [rSVBK], a
         ld a, $3

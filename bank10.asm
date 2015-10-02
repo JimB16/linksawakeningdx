@@ -1,3 +1,6 @@
+
+SECTION "bank10", ROMX, BANK[$a]
+
 RoomPointerData: ; 0x28000
 	dw RoomData_28200 ; $4200
 	dw RoomData_28203 ; $4203
@@ -74,9 +77,18 @@ Unknown_2bb77:
 	dw Unknown_2bbbe
 	dw Unknown_2bbe6
 	dw $7C39, $7C40, $7C66, $7C8D, $7CB6, $7CED, $7D2B, $7D51, $7D8B, $7DB2, $7DC6, $7DF5, $7E26, $7E44, $7E75, $7EAD, $7ED7, $7EEF, $7F12
+; 0x2bba3
+    dw RoomData_28200 ; $4200
+    dw RoomData_28200 ; $4200
+    dw RoomData_28200 ; $4200
+    dw RoomData_28200 ; $4200
+    dw RoomData_28200 ; $4200
+    dw RoomData_28200 ; $4200
+    dw RoomData_28200 ; $4200
+    dw RoomData_28200 ; $4200
+    dw RoomData_28200 ; $4200
+    dw RoomData_28200 ; $4200
 
-Unknown_2bba3:
-INCBIN "baserom.gbc", 16384*10+$3ba3, $3bb7-$3ba3
 
 Unknown_2bbb7:
 INCBIN "baserom.gbc", 16384*10+$3bb7, $3bbe-$3bb7
