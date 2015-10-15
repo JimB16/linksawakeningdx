@@ -5,6 +5,7 @@ INCLUDE "gbhw.asm"
 INCLUDE "enum.asm"
 INCLUDE "hram.asm"
 INCLUDE "macros.asm"
+INCLUDE "charmap.asm"
 
 
 INCLUDE "rst.asm"
@@ -19,53 +20,31 @@ Start::
 INCLUDE "start.asm"
 
 
-
 INCLUDE "bank01.asm"
-
 
 INCLUDE "bank02.asm"
 
-
 INCLUDE "bank03.asm"
 
+INCLUDE "bank04.asm"
 
+INCLUDE "bank05.asm"
 
-SECTION "bank4", ROMX, BANK[$4]
+INCLUDE "bank06.asm"
 
-INCBIN "baserom.gbc", 16384*4, $4000
+INCLUDE "bank07.asm"
 
-SECTION "bank5", ROMX, BANK[$5]
-
-INCBIN "baserom.gbc", 16384*5, $4000
-
-SECTION "bank6", ROMX, BANK[$6]
-
-INCBIN "baserom.gbc", 16384*6, $4000
-
-SECTION "bank7", ROMX, BANK[$7]
-
-INCBIN "baserom.gbc", 16384*7, $4000
-
-SECTION "bank8", ROMX, BANK[$8]
-
-INCBIN "baserom.gbc", 16384*8, $4000
-
-
+INCLUDE "bank08.asm"
 
 INCLUDE "bank09.asm"
 
 INCLUDE "bank10.asm"
 
+INCLUDE "bank11.asm"
+
+INCLUDE "bank12.asm"
 
 
-
-SECTION "bank11", ROMX, BANK[$b]
-
-INCBIN "baserom.gbc", 16384*11, $4000
-
-SECTION "bank12", ROMX, BANK[$c]
-
-INCBIN "baserom.gbc", 16384*12, $4000
 
 SECTION "bank13", ROMX, BANK[$d]
 
@@ -127,7 +106,6 @@ INCBIN "baserom.gbc", 16384*27, $4000
 
 INCLUDE "bank28.asm"
 
-
 INCLUDE "bank29.asm"
 
 
@@ -141,9 +119,7 @@ INCBIN "baserom.gbc", 16384*30, $4000
 
 INCLUDE "bank31.asm"
 
-
 INCLUDE "bank32.asm"
-
 
 INCLUDE "bank33.asm"
 

@@ -4,7 +4,7 @@ SECTION "bank21", ROMX, BANK[$15]
 ; $15:$0000 = 0x54000
 
 Function54000:
-        call $3d76
+        call Function3d76
         ld hl, $c330
         add hl, bc
         ld [hl], b

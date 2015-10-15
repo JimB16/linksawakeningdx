@@ -63,9 +63,16 @@ Function80577:
         ret
 ; 0x80589
 
-
-INCBIN "baserom.gbc", 16384*32+$589, $5ea-$589
-
+OffsetForLevelFloorTiles: ; 0x80589
+        db $4c, $62, $63, $66, $6b, $63, $65, $64, $60, $4c, $4d, $4c, $4c, $4c, $4e, $4e
+        db $4e, $4d, $4d, $4f, $61, $63, $63, $00, $00, $00, $00, $00, $00, $4e, $4e, $4d
+        db $40
+WallGraphics: ; 0x805aa
+        db $40, $6c, $40, $40, $6c, $40, $6e, $4a, $40, $46, $40, $40, $40, $48, $48, $48
+        db $46, $48, $4a, $40, $46, $6c, $00, $00, $00, $00, $00, $00, $48, $48, $46, $4a
+BlockGraphics: ; 0x805ca
+        db $79, $79, $77, $79, $79, $77, $78, $79, $79, $63, $7a, $00, $00, $00, $7b, $7b
+        db $7b, $7a, $7b, $79, $7c, $7a, $77, $00, $00, $00, $00, $00, $00, $7c, $7b, $7a
 Unknown_805ea:
         db $5e, $2d, $5e, $2d, $62, $35, $62, $35, $5e, $2d, $5e, $2d, $62, $35, $62, $35
         db $62, $35, $62, $35, $62, $35, $62, $35, $62, $35, $62, $35, $50, $2d, $62, $35
@@ -338,12 +345,15 @@ Function80854:
         ret
 ; 0x8086c
 
+Unknown_8086c:
+        db $09, $05, $08, $08
 
-INCBIN "baserom.gbc", 16384*32+$86c, $874-$86c
+Unknown_80870:
+        db $0a, $0a, $07, $0c
 
 
 Function80874:
-        ld hl, $486c
+        ld hl, Unknown_8086c
         add hl, de
         ld a, [$ffd7]
         add [hl]
@@ -352,7 +362,7 @@ Function80874:
         ld [$ffce], a
         swap a
         ld [$ffd7], a
-        ld hl, $4870
+        ld hl, Unknown_80870
         add hl, de
         ld a, [$ffd8]
         add [hl]
@@ -368,11 +378,11 @@ Function80874:
 
 Function80898:
         push de
-        ld hl, $d601
-        ld a, [$d600]
+        ld hl, wd601
+        ld a, [wd600]
         ld e, a
         add $a
-        ld [$d600], a
+        ld [wd600], a
         ld d, $0
         add hl, de
         pop de
@@ -403,9 +413,6 @@ Function80898:
         ld [hl], $0
         ret
 ; 0x808ca
-
-INCBIN "baserom.gbc", 16384*32+$8ca, $8ca-$8ca
-
 
 Function808ca:
         ld a, [$c17b]
@@ -464,8 +471,8 @@ Function808ca:
         ret
 ; 0x8091f
 
-
-INCBIN "baserom.gbc", 16384*32+$91f, $923-$91f
+Unknown_8091f:
+        db $10, $12, $11, $13
 
 Function80923:
         ld a, $d
@@ -483,17 +490,18 @@ Function80923:
         xor a
         ld [$ff70], a
         ei
-        call $287e
+        call Function287e
         push bc
         ld a, $20
-        call $0918
+        call Function918
         pop bc
-        ld de, $491f
-        call $4898
+        ld de, Unknown_8091f
+        call Function80898
         ret
 ; 0x80950
 
-INCBIN "baserom.gbc", 16384*32+$950, $954-$950
+Unknown_80950:
+        db $76, $77, $76, $77
 
 Function80954:
         ld a, [hl]
@@ -518,25 +526,31 @@ Function80954:
         ld a, [$ffd7]
         cp $ae
         jr nz, .asm_8097f
-        ld de, $4950
+        ld de, Unknown_80950
         call Function80898
 
 .asm_8097f
         ret
 ; 0x80980
 
-INCBIN "baserom.gbc", 16384*32+$980, $9ba-$980
+INCBIN "baserom.gbc", 16384*32+$980, $9b2-$980
+
+Unknown_809b2:
+        db $10, $f0, $08, $08
+
+Unknown_809b6:
+        db $0c, $0c, $f0, $10
 
 Function809ba:
         ld a, [$ff9e]
         ld e, a
         ld d, $0
-        ld hl, $49b2
+        ld hl, Unknown_809b2
         add hl, de
         ld a, [$ff98]
         add [hl]
         ld [$c179], a
-        ld hl, $49b6
+        ld hl, Unknown_809b6
         add hl, de
         ld a, [$ff99]
         add [hl]
@@ -547,7 +561,17 @@ Function809ba:
 ; 0x809d9
 
 
-INCBIN "baserom.gbc", 16384*32+$9d9, $ab3-$9d9
+INCBIN "baserom.gbc", 16384*32+$9d9, $a93-$9d9
+
+Unknown_80a93:
+        db $08        
+Unknown_80a94:
+        db $06, $0c, $0a, $ff, $04, $0a, $0c, $06, $08, $0a, $0c, $ff, $04, $0c, $0a
+
+Unknown_80aa3:
+        db $23
+Unknown_80aa4:
+        db $23, $63, $63, $03, $03, $43, $43, $03, $03, $03, $03, $43, $43, $23, $23
 
 Function80ab3:
         push hl
@@ -559,7 +583,7 @@ Function80ab3:
         add l
         ld [bc], a
         inc bc
-        ld hl, $4a93
+        ld hl, Unknown_80a93
         ld a, [$ffd9]
         sla a
         ld e, a
@@ -576,7 +600,7 @@ Function80ab3:
 
 .asm_80ad4
         inc bc
-        ld hl, $4aa3
+        ld hl, Unknown_80aa3
         add hl, de
         ld a, [hl]
         ld hl, $ffda
@@ -605,12 +629,12 @@ Function80ab3:
         add $8
         ld [bc], a
         inc bc
-        ld hl, $4a94
+        ld hl, Unknown_80a94
         add hl, de
         ld a, [hl]
         ld [bc], a
         inc bc
-        ld hl, $4aa4
+        ld hl, Unknown_80aa4
         add hl, de
         ld a, [hl]
         ld hl, $ffda
@@ -648,28 +672,34 @@ Function80b1f:
         ret
 ; 0x80b3a
 
-
-INCBIN "baserom.gbc", 16384*32+$b3a, $b4a-$b3a
+Unknown_80b3a:
+        db $10, $00, $08, $08
+Unknown_80b3e:
+        db $03, $03, $08, $08
+Unknown_80b42:
+        db $08, $08, $00, $0d
+Unknown_80b46:
+        db $08, $08, $03, $04
 
 Function80b4a:
         ld a, [$ff9e]
         ld e, a
         ld d, $0
-        ld hl, $4b3a
+        ld hl, Unknown_80b3a
         add hl, de
         ld a, [$ff98]
         add [hl]
         ld [$c140], a
-        ld hl, $4b3e
+        ld hl, Unknown_80b3e
         add hl, de
         ld a, [hl]
         ld [$c141], a
-        ld hl, $4b42
+        ld hl, Unknown_80b42
         add hl, de
         ld a, [$c145]
         add [hl]
         ld [$c142], a
-        ld hl, $4b46
+        ld hl, Unknown_80b46
         add hl, de
         ld a, [hl]
         ld [$c143], a
@@ -686,7 +716,7 @@ Function80b81:
         ld [hl], $10
         ld a, [$c1c0]
         and a
-        jp z, $4baa
+        jp z, Function80baa
         xor a
         ld [$c1c0], a
         ld a, [$db01]
@@ -704,7 +734,68 @@ Function80b81:
         ret
 ; 0x80baa
 
-INCBIN "baserom.gbc", 16384*32+$baa, $c0b-$baa
+Function80baa:
+        ld a, $6
+        ld [$c1c0], a
+        ld a, e
+        ld [$c1c1], a
+        ld a, $c
+        ld [$c19b], a
+        ld hl, $c2e0
+        add hl, de
+        ld [hl], $a0
+        ld hl, $c3b0
+        add hl, de
+        ld [hl], d
+        ld hl, $c480
+        add hl, de
+        ld [hl], $3
+        ld a, [$fff9]
+        and a
+        jr nz, .asm_80bd4
+        ld a, $9
+        ld [$fff2], a
+        jr .asm_80bd9
+
+.asm_80bd4
+        ld hl, $c310
+        add hl, de
+        ld [hl], d
+
+.asm_80bd9
+        ld hl, $c240
+        add hl, de
+        ld [hl], d
+        ld hl, $c250
+        add hl, de
+        ld [hl], d
+        ld hl, $c320
+        add hl, de
+        ld [hl], d
+        ld a, [$ff9e]
+        ld c, a
+        ld b, d
+        ld hl, $4b79
+        add hl, bc
+        ld a, [$ff98]
+        add [hl]
+        ld hl, $c200
+        add hl, de
+        ld [hl], a
+        ld hl, $4b7d
+        add hl, bc
+        ld a, [$ff99]
+        add [hl]
+        ld hl, $c210
+        add hl, de
+        ld [hl], a
+Unknown_80c04:
+        ret
+; 0x80c05
+
+        db $18, $e8
+Unknown_80c07:
+        db $00, $e8, $18, $00
 
 Function80c0b:
         ld hl, $c2e0
@@ -728,7 +819,7 @@ Function80c0b:
         and $3
         ld c, a
         ld b, $0
-        ld hl, $4c04
+        ld hl, Unknown_80c04
         add hl, bc
         ld a, [hl]
         ld hl, $c240
@@ -740,7 +831,7 @@ Function80c0b:
         and $3
         ld c, a
         ld b, $0
-        ld hl, $4c07
+        ld hl, Unknown_80c07
         add hl, bc
         ld a, [hl]
         ld hl, $c250
@@ -751,8 +842,10 @@ Function80c0b:
         ret
 ; 0x80c4b
 
-
-INCBIN "baserom.gbc", 16384*32+$c4b, $c53-$c4b
+Unknown_80c4b:
+        db $0e, $f2, $00, $00
+Unknown_80c4f:
+        db $00, $00, $f4, $0c
 
 Function80c53: ; 0x80c53
         ld a, $5
@@ -781,14 +874,14 @@ Function80c53: ; 0x80c53
         push bc
         ld a, [$ff9e]
         ld c, a
-        ld hl, $4c4b
+        ld hl, Unknown_80c4b
         add hl, bc
         ld a, [$ff98]
         add [hl]
         ld hl, $c200
         add hl, de
         ld [hl], a
-        ld hl, $4c4f
+        ld hl, Unknown_80c4f
         add hl, bc
         ld a, [$ff99]
         add [hl]
@@ -807,7 +900,12 @@ Function80c53: ; 0x80c53
 ; 0x80ca4
 
 
-INCBIN "baserom.gbc", 16384*32+$ca4, $1263-$ca4
+INCBIN "baserom.gbc", 16384*32+$ca4, $1230-$ca4
+
+Unknown_81230:
+INCBIN "baserom.gbc", 16384*32+$1230, $1252-$1230
+Unknown_81252:
+INCBIN "baserom.gbc", 16384*32+$1252, $1263-$1252
 
 Function81263:
         ld a, [$db96]
@@ -835,12 +933,12 @@ Function81263:
 .asm_81288
         ld a, [$c17e]
         ld e, a
-        ld hl, $5252
+        ld hl, Unknown_81252
         add hl, de
         ld a, [hl]
         ld [$ffd7], a
         sla e
-        ld hl, $5230
+        ld hl, Unknown_81230
         add hl, de
         ld a, [hli]
         ld b, [hl]
@@ -913,21 +1011,25 @@ Function81263:
 ; 0x81304
 
 
-INCBIN "baserom.gbc", 16384*32+$1304, $1501-$1304
+INCBIN "baserom.gbc", 16384*32+$1304, $1325-$1304
 
+Unknown_81325:
+INCBIN "baserom.gbc", 16384*32+$1325, $1413-$1325
+Unknown_81413:
+INCBIN "baserom.gbc", 16384*32+$1413, $1501-$1413
 
 Function81501:
         ld a, [$ff9d]
         cp $ff
         ret z
-        ld hl, $5325
+        ld hl, Unknown_81325
         sla a
         ld c, a
         ld b, $0
         add hl, bc
         ld e, [hl]
         push hl
-        ld hl, $5413
+        ld hl, Unknown_81413
         add hl, bc
         ld a, [$c11d]
         and $98
@@ -951,7 +1053,7 @@ Function81501:
         add hl, de
         ld c, l
         ld b, h
-        ld hl, $8000
+        ld hl, v8000
         ld d, $20
         call Function1d0d
         pop hl
@@ -1049,9 +1151,8 @@ Function815d6: ; 0x815d6
         ret
 ; 0x8163b
 
-
-INCBIN "baserom.gbc", 16384*32+$163b, $1647-$163b
-
+Unknown_8163b:
+        db $00, $01, $02, $03, $00, $03, $01, $00, $00, $01, $02, $03
 
 Function81647: ; 0x81647
         ld hl, $c16c
@@ -1084,7 +1185,7 @@ Function81647: ; 0x81647
         sla a
         or b
         ld e, a
-        ld hl, $563b
+        ld hl, Unknown_8163b
         add hl, de
         ld a, c
         and $3
@@ -1122,7 +1223,7 @@ Function81910: ; 0x81910
         ld e, c
         call c, Function959
         ld e, e
-        ld sp, $5e5d
+        ld sp, Unknown_81e5d
         ld e, l
         ld h, $5e
         ei
@@ -1283,7 +1384,7 @@ Function81bc5:
         ld [$dc90], a
         push hl
         sla c
-        ld hl, $5c90
+        ld hl, Unknown_81c90
         add hl, bc
         push hl
         pop de
@@ -1299,7 +1400,7 @@ Function81bc5:
         ld a, [$ffd8]
         sla a
         ld c, a
-        ld hl, $5c20
+        ld hl, Unknown_81c20
         add hl, bc
         push hl
         pop de
@@ -1341,7 +1442,14 @@ Function81bc5:
 ; 0x81c20
 
 
-INCBIN "baserom.gbc", 16384*32+$1c20, $1ca8-$1c20
+Unknown_81c20:
+INCBIN "baserom.gbc", 16384*32+$1c20, $1c3c-$1c20
+Unknown_81c3c:
+INCBIN "baserom.gbc", 16384*32+$1c3c, $1c3f-$1c3c
+Unknown_81c3f:
+INCBIN "baserom.gbc", 16384*32+$1c3f, $1c90-$1c3f
+Unknown_81c90:
+INCBIN "baserom.gbc", 16384*32+$1c90, $1ca8-$1c90
 
 Function81ca8:
         push de
@@ -1361,16 +1469,16 @@ Function81ca8:
         call Function81bc5
 
 .asm_81cc1
-        ld a, [$d600]
+        ld a, [wd600]
         ld e, a
         ld d, $0
-        ld hl, $d601
+        ld hl, wd601
         add hl, de
         add $c
-        ld [$d600], a
+        ld [wd600], a
         push hl
         sla c
-        ld hl, $5c90
+        ld hl, Unknown_81c90
         add hl, bc
         push hl
         pop de
@@ -1386,7 +1494,7 @@ Function81ca8:
         push hl
         ld a, [$ffd7]
         ld c, a
-        ld hl, $5c3c
+        ld hl, Unknown_81c3c
         add hl, bc
         push hl
         pop de
@@ -1404,7 +1512,7 @@ Function81ca8:
         push bc
         push hl
         sla c
-        ld hl, $5c90
+        ld hl, Unknown_81c90
         add hl, bc
         push hl
         pop de
@@ -1427,7 +1535,7 @@ Function81ca8:
         push hl
         ld a, [$ffd7]
         ld c, a
-        ld hl, $5c3f
+        ld hl, Unknown_81c3f
         add hl, bc
         push hl
         pop de
@@ -1447,7 +1555,10 @@ Function81ca8:
         ret
 ; 0x81d31
 
-INCBIN "baserom.gbc", 16384*32+$1d31, $2346-$1d31
+INCBIN "baserom.gbc", 16384*32+$1d31, $1e5d-$1d31
+
+Unknown_81e5d:
+INCBIN "baserom.gbc", 16384*32+$1e5d, $2346-$1e5d
 
 Unknown_82346:
         db $10, $38, $10, $30, $10, $30, $10, $30, $10, $30, $10, $30
@@ -1492,7 +1603,7 @@ Function8235e:
         add hl, de
         ld a, [hl]
         ld [$ffd8], a
-        ld a, [$d47c]
+        ld a, [wd47c]
         dec a
         jr nz, .asm_823cf
         ld a, [$ffe7]
@@ -2031,7 +2142,7 @@ Function82caf:
         jr z, .asm_82d02
         ld a, [$ddd1]
         push af
-        call $6a38
+        call Function82a38
         pop af
         ld [$ddd1], a
         ld a, $1
@@ -2193,5 +2304,17 @@ Function82e58:
 
 Unknown_82e6d:
 
-INCBIN "baserom.gbc", 16384*32+$2e6d, $4000-$2e6d
+INCBIN "baserom.gbc", 16384*32+$2e6d, $2ebb-$2e6d
+
+Unknown_82ebb:
+
+INCBIN "baserom.gbc", 16384*32+$2ebb, $30bb-$2ebb
+
+Unknown_830bb:
+
+SpecialObjectGraphics: ; 0x82eb0
+
+EnemyGraphics: ; 0x831d3
+
+INCBIN "baserom.gbc", 16384*32+$30bb, $4000-$30bb
 
