@@ -142,11 +142,1592 @@ Function81d0:
         ret
 ; 0x81fc
 
-INCBIN "baserom.gbc", 16384*2+$1fc, $9d2-$1fc
+INCBIN "baserom.gbc", 16384*2+$1fc, $290-$1fc
+
+Function8290:
+        ld a, [$c14c]
+        and a
+        jr z, .asm_829a
+        dec a
+        ld [$c14c], a
+
+.asm_829a
+        ld a, [$c1c4]
+        and a
+        jr z, .asm_82a4
+        dec a
+        ld [$c1c4], a
+
+.asm_82a4
+        ld a, [$c1c0]
+        and a
+        jr z, .asm_82ae
+        dec a
+        ld [$c1c0], a
+
+.asm_82ae
+        call Function8375
+        ld a, [$c16e]
+        and a
+        jr z, .asm_82bb
+        dec a
+        ld [$c16e], a
+
+.asm_82bb
+        ld a, [$ffa1]
+        cp $2
+        jr nz, .asm_82d0
+        xor a
+        ld [$ffa1], a
+        ld [$ff9a], a
+        ld [$ff9b], a
+        ld [$ffa3], a
+        call Function8a1e
+        jp Functionb57f
+
+.asm_82d0
+        call Function1a4b
+        xor a
+        ld [$ffa1], a
+        call Function1f63
+        call Function1173
+        call Function84f5
+        call Function8353
+        call Function8794
+        call Function8b62
+        call Function1793
+        call Function8341
+        call Function8a1e
+        ld a, [$c124]
+        and a
+        jr nz, .asm_831e
+        ld a, [$c137]
+        ld [$c16a], a
+        cp $5
+        jr nz, .asm_831f
+        ld a, [$c14a]
+        and a
+        jr nz, .asm_833c
+        xor a
+        ld [$c137], a
+        ld a, [$c122]
+        cp $28
+        jr z, .asm_831e
+        inc a
+        ld [$c122], a
+        cp $28
+        jr nz, .asm_831e
+        ld a, $4
+        ld [$fff2], a
+
+.asm_831e
+        ret
+
+.asm_831f
+        ld a, [$c1ad]
+        cp $1
+        jr z, .asm_833c
+        ld a, [$c122]
+        cp $28
+        jr nz, .asm_833c
+        ld a, [$c16e]
+        and a
+        jr nz, .asm_8340
+        ld a, $20
+        ld [$c121], a
+        ld a, $3
+        ld [$fff4], a
+
+.asm_833c
+        xor a
+        ld [$c122], a
+
+.asm_8340
+        ret
+; 0x8341
+
+Function8341:
+        ld a, [$c15c]
+        cp $2
+        jr c, .asm_834e
+        ld [$ff9d], a
+        ld a, $1
+        ld [$ffa1], a
+
+.asm_834e
+        ret
+; 0x834f
+
+Unknown_834f:
+    db $11, $10, $0f, $0e
+
+Function8353:
+        ld a, [$c19b]
+        and $7f
+        jr z, .asm_8370
+        ld a, [$c19b]
+        dec a
+        ld [$c19b], a
+        and $7f
+        ld a, [$ff9e]
+        ld e, a
+        ld d, $0
+        ld hl, Unknown_834f
+        add hl, de
+        ld a, [hl]
+        ld [$ff9d], a
+        ret
+
+.asm_8370
+        xor a
+        ld [$c19b], a
+        ret
+; 0x8375
+
+Function8375:
+        ld a, [$fff9]
+        and a
+        jr z, .asm_83c3
+        ld a, [$c17b]
+        and a
+        jr nz, .asm_83c3
+        jp Functiona8d3
+
+.asm_8383
+        ld a, [$ffcb]
+        and $f
+        or e
+        ld e, a
+        ld hl, Unknown_88cd
+        add hl, de
+        ld a, [hl]
+        ld [$ff9a], a
+        ld hl, Unknown_88ed
+        add hl, de
+        ld a, [hl]
+        ld [$ff9b], a
+        ret
+
+.asm_8398
+        ld a, [$ffcb]
+        and $f
+        or e
+        ld e, a
+        ld hl, Unknown_88cd
+        add hl, de
+        ld a, [hl]
+        ld hl, $ff9a
+        sub [hl]
+        jr z, .asm_83b0
+        inc [hl]
+        bit 7, a
+        jr z, .asm_83b0
+        dec [hl]
+        dec [hl]
+
+.asm_83b0
+        ld hl, Unknown_88ed
+        add hl, de
+        ld a, [hl]
+        ld hl, $ff9b
+        sub [hl]
+        jr z, .asm_83c2
+        inc [hl]
+        bit 7, a
+        jr z, .asm_83c2
+        dec [hl]
+        dec [hl]
+
+.asm_83c2
+        ret
+
+.asm_83c3
+        ld a, [$dbae]
+        ld [$d46b], a
+        call Function84ca
+        ld a, [$ffa2]
+        and a
+        jr nz, .asm_83d7
+        ld a, [$ffa1]
+        and a
+        jp nz, .asm_84bd
+
+.asm_83d7
+        ld a, [$c14a]
+        and a
+        jr z, .asm_840b
+        ld a, [$ffcc]
+        and $f
+        jr z, .asm_83ef
+        ld e, a
+        ld d, $0
+        ld hl, Unknown_890d
+        add hl, de
+        ld a, [$ff9e]
+        cp [hl]
+        jr nz, .asm_83fd
+
+.asm_83ef
+        ld a, [$c120]
+        add $2
+        ld [$c120], a
+        call Function1755
+        jp .asm_846c
+
+.asm_83fd
+        ld [$c19a], a
+        ld a, [$c199]
+        add $c
+        ld [$c199], a
+        call Functioncab
+
+.asm_840b
+        ld a, [$c146]
+        and a
+        jr nz, .asm_846c
+        ld e, $0
+        ld d, $0
+        ld a, [$d47c]
+        cp $1
+        jr nz, .asm_841e
+        ld e, $10
+
+.asm_841e
+        ld a, [$c17b]
+        and a
+        jr .asm_842f
+
+        ld a, [$fff7]
+        cp $ff
+        jr nz, .asm_842f
+        call .asm_8398
+        jr .asm_8432
+
+.asm_842f
+        call .asm_8383
+
+.asm_8432
+        ld a, [$c17b]
+        and a
+        jr z, .asm_8442
+        ld hl, $ff9a
+        sla [hl]
+        ld hl, $ff9b
+        sla [hl]
+
+.asm_8442
+        ld a, e
+        and $f
+        ld e, a
+        jr z, .asm_8461
+        ld hl, $c120
+        inc [hl]
+        ld hl, Unknown_890d
+        add hl, de
+        ld a, [hl]
+        cp $f
+        jr z, .asm_846c
+        ld e, a
+        ld a, [$c16e]
+        and a
+        ld a, e
+        jr nz, .asm_845f
+        ld [$ff9e], a
+
+.asm_845f
+        jr .asm_846c
+
+.asm_8461
+        ld a, [$c14b]
+        and a
+        jr nz, .asm_846c
+        ld a, $7
+        ld [$c120], a
+
+.asm_846c
+        ld e, $3
+        ld a, [$c117]
+        and a
+        jr nz, .asm_84aa
+        ld e, $1
+        ld a, [$c15c]
+        and a
+        jr z, .asm_8489
+        ld a, [$c5a8]
+        cp $d5
+        jr nz, .asm_8489
+        ld a, [$c146]
+        and a
+        jr nz, .asm_84aa
+
+.asm_8489
+        ld a, [$ffb2]
+        and a
+        jr nz, .asm_84aa
+        ld hl, $c11f
+        ld a, [hl]
+        and a
+        jr z, .asm_84b5
+        cp $7
+        jr nz, .asm_84b1
+        ld a, [$c17b]
+        and a
+        jr nz, .asm_84b5
+        ld e, $1
+        ld a, [$c1bb]
+        cp $18
+        jr c, .asm_84aa
+        ld e, $7
+
+.asm_84aa
+        ld a, [$ffe7]
+        and e
+        jr nz, .asm_84bd
+        jr .asm_84b5
+
+.asm_84b1
+        ld a, [$ffe7]
+        and [hl]
+        ret z
+
+.asm_84b5
+        ld a, [$c14f]
+        and a
+        ret nz
+        call Function219f
+
+.asm_84bd
+        ld a, [$c11f]
+        ld [$c130], a
+        xor a
+        ld [$c11f], a
+        jp Functionac91
+; 0x84ca
+
+Function84ca:
+        ld a, [$c13e]
+        and a
+        ret z
+        dec a
+        ld [$c13e], a
+        call Function219f
+        call Functionac91
+        ld a, [$c133]
+        and a
+        jr z, .asm_84eb
+        and $3
+        jr z, .asm_84e8
+        xor a
+        ld [$ff9b], a
+        jr .asm_84eb
+
+.asm_84e8
+        xor a
+        ld [$ff9a], a
+
+.asm_84eb
+        pop af
+        jp Function1793
+; 0x84ef
+
+Unknown_84ef:
+INCBIN "baserom.gbc", 16384*2+$4ef, $4f5-$4ef
+
+Function84f5:
+        ld a, [$c146]
+        and a
+        jp z, .asm_85b4
+        ld a, [$fff9]
+        and a
+        jp nz, $45b4
+        call Function21d8
+        ld a, [$ffa3]
+        sub $2
+        ld [$ffa3], a
+        ld a, $ff
+        ld [$c120], a
+        ld a, [$c10a]
+        ld hl, $c14a
+        or [hl]
+        jr nz, .asm_856b
+        ld a, [$d475]
+        and a
+        jr nz, .asm_8526
+        ld a, [$c1ad]
+        cp $80
+        jr nz, .asm_852b
+
+.asm_8526
+        call Function178d
+        jr .asm_856b
+
+.asm_852b
+        ld a, [$ffcb]
+        and $3
+        jr z, .asm_854a
+        ld e, a
+        ld d, $0
+        ld hl, Unknown_a8cd
+        add hl, de
+        ld a, [$ff9a]
+        sub [hl]
+        jr z, .asm_854a
+        ld e, $1
+        bit 7, a
+        jr nz, .asm_8545
+        ld e, $ff
+
+.asm_8545
+        ld a, [$ff9a]
+        add e
+        ld [$ff9a], a
+
+.asm_854a
+        ld a, [$ffcb]
+        rra
+        rra
+        and $3
+        jr z, .asm_856b
+        ld e, a
+        ld d, $0
+        ld hl, Unknown_84ef
+        add hl, de
+        ld a, [$ff9b]
+        sub [hl]
+        jr z, .asm_856b
+        ld e, $1
+        bit 7, a
+        jr nz, .asm_8566
+        ld e, $ff
+
+.asm_8566
+        ld a, [$ff9b]
+        add e
+        ld [$ff9b], a
+
+.asm_856b
+        ld a, [$ffa2]
+        and a
+        jr z, .asm_8574
+        and $80
+        jr z, .asm_85b4
+
+.asm_8574
+        call Functioncb2
+        ld [$ffa2], a
+        ld [$c149], a
+        ld [$ffa3], a
+        ld [$c146], a
+        ld [$c152], a
+        ld [$c153], a
+        ld [$c10a], a
+        ld a, [$ff99]
+        cp $88
+        jr nc, .asm_85b4
+        call asm_b602
+        ld a, [$ffb8]
+        cp $61
+        jr z, .asm_85b4
+        ld a, [$c181]
+        cp $5
+        jr z, .asm_85b5
+        cp $7
+        jr z, .asm_85b4
+        cp $b
+        jr z, .asm_85b4
+        cp $50
+        jr z, .asm_85b4
+        cp $51
+        jr z, .asm_85b4
+        ld a, $7
+        ld [$fff4], a
+
+.asm_85b4
+        ret
+
+.asm_85b5
+        ld a, [$ff99]
+        ld [$ffd8], a
+        ld a, [$ff98]
+        ld [$ffd7], a
+        ld a, $e
+        ld [$fff2], a
+        ld a, $c
+        jp Functioncc3
+; 0x85c6
+
+Unknown_85c6:
+INCBIN "baserom.gbc", 16384*2+$5c6, $5de-$5c6
+
+Unknown_85de:
+INCBIN "baserom.gbc", 16384*2+$5de, $5f6-$5de
+
+Unknown_85f6:
+INCBIN "baserom.gbc", 16384*2+$5f6, $60e-$5f6
+
+Unknown_860e:
+INCBIN "baserom.gbc", 16384*2+$60e, $626-$60e
+
+Unknown_8626:
+INCBIN "baserom.gbc", 16384*2+$626, $63e-$626
+
+Unknown_863e:
+INCBIN "baserom.gbc", 16384*2+$63e, $656-$63e
+
+Unknown_8656:
+INCBIN "baserom.gbc", 16384*2+$656, $66e-$656
+
+Unknown_866e:
+INCBIN "baserom.gbc", 16384*2+$66e, $686-$66e
+
+Unknown_8686:
+INCBIN "baserom.gbc", 16384*2+$686, $69e-$686
+
+Unknown_869e:
+INCBIN "baserom.gbc", 16384*2+$69e, $6b5-$69e
+
+Unknown_86b5:
+INCBIN "baserom.gbc", 16384*2+$6b5, $6bd-$6b5
+
+Unknown_86bd:
+INCBIN "baserom.gbc", 16384*2+$6bd, $6cd-$6bd
+
+Unknown_86cd:
+INCBIN "baserom.gbc", 16384*2+$6cd, $6d1-$6cd
+
+Unknown_86d1:
+INCBIN "baserom.gbc", 16384*2+$6d1, $6f1-$6d1
+
+Unknown_86f1:
+INCBIN "baserom.gbc", 16384*2+$6f1, $711-$6f1
+
+Function8711:
+        dec a
+        ld [$c121], a
+        ld hl, $ffa1
+        ld [hl], $1
+        srl a
+        srl a
+        ld e, a
+        ld d, $0
+        ld a, [$ff9e]
+        sla a
+        sla a
+        sla a
+        add e
+        ld e, a
+        ld hl, Unknown_86d1
+        add hl, de
+        ld a, [hl]
+        ld [$c137], a
+        ld hl, Unknown_86f1
+        add hl, de
+        ld a, [$ff9e]
+        push af
+        ld a, [hl]
+        ld [$ff9e], a
+        call Function882f
+        pop af
+        ld [$ff9e], a
+        ld a, [$ffe7]
+        and $3
+        jr nz, .asm_874d
+        ld hl, $c121
+        dec [hl]
+
+.asm_874d
+        ld a, [$c121]
+        and a
+        jp z, Function88b8
+        rla
+        jp c, Function88b8
+        ld a, [$ff98]
+        add $8
+        ld [$c140], a
+        ld a, $18
+        ld [$c141], a
+        ld [$c143], a
+        ld a, [$c145]
+        add $8
+        ld [$c142], a
+        ld [$c5b0], a
+        ret
+; 0x8773
+
+Function8773:
+        dec a
+        ld [$c16d], a
+        jp z, Function88b8
+        ld hl, $c16e
+        ld [hl], $4
+        ld a, [$c14a]
+        and a
+        jr nz, .asm_8789
+        ld a, $1
+        ld [$ffa1], a
+
+.asm_8789
+        ld a, $3
+        ld [$c137], a
+        jp Function882f
+; 0x8791
+
+Function8791:
+        jp Function882f
+; 0x8794
+
+Function8794:
+        ld a, [$d475]
+        and a
+        jr z, .asm_87ab
+        ld a, [$ffe7]
+        rra
+        rra
+        and $3
+        ld e, a
+        ld d, $0
+        ld hl, Unknown_86cd
+        add hl, de
+        ld a, [hl]
+        ld [$ff9e], a
+        ret
+
+.asm_87ab
+        ld a, [$c146]
+        cp $1
+        jr nz, .asm_87e8
+        ld a, [$c3cf]
+        ld hl, $c137
+        or [hl]
+        jr nz, .asm_87e8
+        ld a, [$ff9e]
+        rla
+        rla
+        and $c
+        ld c, a
+        ld b, $0
+        ld a, [$c152]
+        cp $3
+        jr nc, .asm_87e8
+        ld e, a
+        ld d, $0
+        ld hl, Unknown_86bd
+        add hl, de
+        add hl, bc
+        ld a, [hl]
+        ld [$ff9d], a
+        ld a, [$c153]
+        inc a
+        ld [$c153], a
+        and $7
+        jr nz, .asm_87e8
+        ld a, [$c152]
+        inc a
+        ld [$c152], a
+
+.asm_87e8
+        ld a, [$c121]
+        and a
+        jp nz, Function8711
+        ld a, [$c16d]
+        and a
+        jp nz, Function8773
+        ld a, [$c137]
+        and a
+        ret z
+        ld hl, $c16e
+        ld [hl], $4
+        ld a, [$c137]
+        cp $5
+        jr nc, Function8791 ; 0x8805 $8a
+        ld a, [$c14a]
+        and a
+        jr nz, .asm_8811
+        ld a, $1
+        ld [$ffa1], a
+
+.asm_8811
+        ld a, [$c138]
+        and a
+        jr nz, .asm_882b
+        ld a, [$c137]
+        inc a
+        ld [$c137], a
+        cp $4
+        jp z, Function88b8
+        ld c, a
+        ld b, $0
+        ld hl, Unknown_86b5
+        add hl, bc
+        ld a, [hl]
+
+.asm_882b
+        dec a
+        ld [$c138], a
+
+Function882f:
+        ld hl, $c137
+        ld a, [$ff9e]
+        ld e, a
+        sla a
+        sla a
+        add e
+        add e
+        add [hl]
+        ld c, a
+        ld b, $0
+        ld hl, Unknown_8626
+        add hl, bc
+        ld a, [hl]
+        ld [$c136], a
+        ld hl, Unknown_863e
+        add hl, bc
+        ld a, [hl]
+        cp $ff
+        jr z, .asm_8852
+        ld [$ff9d], a
+
+.asm_8852
+        ld hl, Unknown_8656
+        add hl, bc
+        ld a, [hl]
+        ld [$c13a], a
+        ld hl, Unknown_866e
+        add hl, bc
+        ld a, [hl]
+        ld [$c139], a
+        ld hl, Unknown_8686
+        add hl, bc
+        ld a, [hl]
+        ld [$c13c], a
+        ld hl, Unknown_869e
+        add hl, bc
+        ld a, [hl]
+        ld [$c13b], a
+        ld hl, Unknown_85c6
+        add hl, bc
+        ld a, [hl]
+        and a
+        jr z, .asm_88b5
+        ld a, [$c15b]
+        and a
+        jr z, .asm_8886
+        ld a, [$ffe7]
+        and $1
+        jr nz, .asm_88b5
+
+.asm_8886
+        ld a, [$c13a]
+        add [hl]
+        ld hl, $ff98
+        add [hl]
+        ld [$c140], a
+        ld hl, Unknown_85de
+        add hl, bc
+        ld a, [hl]
+        ld [$c141], a
+        ld a, [$c139]
+        ld hl, Unknown_85f6
+        add hl, bc
+        add [hl]
+        ld hl, $c145
+        add [hl]
+        ld [$c142], a
+        ld hl, Unknown_860e
+        add hl, bc
+        ld a, [hl]
+        ld [$c143], a
+        ld a, $1
+        ld [$c5b0], a
+
+.asm_88b5
+        jp Function15a6
+; 0x88b8
+
+Function88b8:
+        xor a
+        ld [$c1ac], a
+        ld a, [$c14a]
+        and a
+        jr nz, .asm_88cc
+        xor a
+        ld [$c137], a
+        ld [$c16a], a
+        ld [$c121], a
+
+.asm_88cc
+        ret
+; 0x88cd
+
+Unknown_88cd:
+INCBIN "baserom.gbc", 16384*2+$8cd, $8ed-$8cd
+
+Unknown_88ed:
+INCBIN "baserom.gbc", 16384*2+$8ed, $90d-$8ed
+
+Unknown_890d:
+INCBIN "baserom.gbc", 16384*2+$90d, $9d2-$90d
 
 Unknown_89d2:
+INCBIN "baserom.gbc", 16384*2+$9d2, $a1a-$9d2
 
-INCBIN "baserom.gbc", 16384*2+$9d2, $13d0-$9d2
+Unknown_8a1a:
+    db $08, $f8, $06, $01
+
+Function8a1e:
+        ld a, [$c166]
+        and a
+        ret z
+        ld a, [$c11c]
+        cp $1
+        jr nz, .asm_8a31
+        xor a
+        ld [$c166], a
+        ld [$fff3], a
+        ret
+
+.asm_8a31
+        ld a, [$c166]
+        ld hl, $ffa1
+        ld [hl], $2
+        cp $ff
+        jr nz, .asm_8a95
+        ld a, [$d210]
+        add $1
+        ld [$d210], a
+        ld a, [$d211]
+        adc $0
+        ld [$d211], a
+        cp $8
+        jr nz, .asm_8a6c
+        ld a, [$d210]
+        cp $d0
+        jr nz, .asm_8a6c
+        xor a
+        ld [$c166], a
+        ld [$c167], a
+        ld a, $3
+        ld [$c5a3], a
+        ld a, [$d465]
+        cp $47
+        ret z
+        jr .asm_8a85
+
+.asm_8a6c
+        ld a, [$d465]
+        cp $47
+        jr z, .asm_8a93
+        ld a, [$ffcc]
+        and $30
+        jr z, .asm_8a93
+        xor a
+        ld [$c166], a
+        ld [$c167], a
+        ld a, $3
+        ld [$c5a3], a
+
+.asm_8a85
+        ld a, [$d461]
+        ld e, a
+        ld d, b
+        ld hl, $c290
+        add hl, de
+        ld [hl], $0
+        jp Function27d4
+
+.asm_8a93
+        jr .asm_8aea
+
+.asm_8a95
+        call Function178d
+        call Functioncab
+        ld hl, $c166
+        dec [hl]
+        jr nz, .asm_8aea
+        ld a, [$db73]
+        and a
+        jr z, .asm_8abb
+        ld a, [$db4a]
+        cp $1
+        jr z, .asm_8acb
+        ld a, [$dba5]
+        and a
+        jr nz, .asm_8acb
+        ld a, $77
+        call Function2373
+        jr .asm_8acb
+
+.asm_8abb
+        ld a, [$db49]
+        and a
+        jr nz, .asm_8acb
+        ld a, $8e
+        call Function237c
+        xor a
+        ld [$c167], a
+        ret
+
+.asm_8acb
+        xor a
+        ld [$c167], a
+        ld a, [$db4a]
+        cp $1
+        jr nz, .asm_8ae9
+        ld a, $2
+        ld [$c17f], a
+        xor a
+        ld [$c180], a
+        ld [$c16b], a
+        ld [$c16c], a
+        ld a, $2c
+        ld [$fff2], a
+
+.asm_8ae9
+        ret
+
+.asm_8aea
+        ld a, [$c5a4]
+        inc a
+        ld [$c5a4], a
+        cp $38
+        jr c, .asm_8b01
+        xor a
+        ld [$c5a4], a
+        ld a, [$c5a5]
+        xor $1
+        ld [$c5a5], a
+
+.asm_8b01
+        ld a, [$c5a5]
+        ld e, $75
+        and a
+        jr nz, .asm_8b0a
+        inc e
+
+.asm_8b0a
+        ld a, e
+        ld [$ff9d], a
+        ld a, $2
+        ld [$c167], a
+        ld [$c111], a
+        ld a, [$c166]
+        cp $10
+        ret c
+        ld a, [$c5a4]
+        cp $14
+        jr nz, .asm_8b59
+        ld a, $c9
+        call Function3b7d
+        jr c, .asm_8b59
+        ld a, [$ff99]
+        ld hl, $c210
+        add hl, de
+        sub $8
+        ld [hl], a
+        ld a, [$c5a5]
+        ld c, a
+        ld b, d
+        ld hl, Unknown_8a1a
+        add hl, bc
+        ld a, [$ff98]
+        add [hl]
+        ld hl, $c200
+        add hl, de
+        ld [hl], a
+        ld hl, $4a1c
+        add hl, bc
+        ld a, [hl]
+        ld hl, $c240
+        add hl, de
+        ld [hl], a
+        ld hl, $c250
+        add hl, de
+        ld [hl], $fc
+        ld hl, $c3d0
+        add hl, de
+        ld [hl], $40
+
+.asm_8b59
+        ret
+; 0x8b5a
+
+Unknown_8b5a:
+    db $71, $72, $6f, $70, $73, $74, $6d, $6e
+
+Function8b62:
+        ld a, [$c1c7]
+        and a
+        jr z, .asm_8bd8
+        ld a, [$fff7]
+        cp $8
+        jr nz, .asm_8b7d
+        ld a, [$d219]
+        cp $2
+        jr nz, .asm_8b7d
+        call Function134a
+        ld a, $1
+        ld [$c5b0], a
+
+.asm_8b7d
+        ld hl, $ffa1
+        ld [hl], $1
+        call $178d
+        ld [$c137], a
+        ld [$c121], a
+        ld [$c122], a
+        ld a, [$c1c8]
+        inc a
+        ld [$c1c8], a
+        cp $10
+        jr nz, .asm_8b9e
+        push af
+        call Function8be1
+        pop af
+
+.asm_8b9e
+        cp $18
+        jr nz, .asm_8bc2
+        ld a, [$c1c7]
+        cp $2
+        jr nz, .asm_8bba
+        ld a, [$db73]
+        and a
+        jr z, .asm_8bba
+        ld a, [$c19f]
+        and a
+        jr nz, .asm_8bba
+        ld a, $79
+        call Function2373
+
+.asm_8bba
+        xor a
+        ld [$c1c7], a
+        ld [$c1ac], a
+        ret
+
+.asm_8bc2
+        rra
+        rra
+        rra
+        rra
+        and $1
+        ld e, a
+        ld a, [$ff9e]
+        sla a
+        add e
+        ld e, a
+        ld d, $0
+        ld hl, Unknown_8b5a
+        add hl, de
+        ld a, [hl]
+        ld [$ff9d], a
+
+.asm_8bd8
+        ret
+; 0x8bd9
+
+Unknown_8bd9:
+    db $14, $fc, $08, $08
+Unknown_8bdd:
+    db $0a, $0a, $fc, $14
+
+Function8be1:
+        call Function8d39
+        ret c
+        ld a, $2
+        ld [$c1c7], a
+        jp Function8cab
+; 0x8bed
+
+Function8bed:
+        ld a, [$ffcf]
+        ld [hli], a
+        ld a, [$ffd0]
+        ld [hli], a
+        ld a, $81
+        ld [hli], a
+        ld a, [$dba5]
+        and a
+        jr z, .asm_8c13
+        ld a, $4
+        ld [hli], a
+        ld a, $6
+        ld [hli], a
+        ld a, [$ffcf]
+        ld [hli], a
+        ld a, [$ffd0]
+        inc a
+        ld [hli], a
+        ld a, $81
+        ld [hli], a
+        ld a, $5
+        ld [hli], a
+        ld a, $7
+        jr .asm_8c28
+
+.asm_8c13
+        ld a, $6a
+        ld [hli], a
+        ld a, $7a
+        ld [hli], a
+        ld a, [$ffcf]
+        ld [hli], a
+        ld a, [$ffd0]
+        inc a
+        ld [hli], a
+        ld a, $81
+        ld [hli], a
+        ld a, $6b
+        ld [hli], a
+        ld a, $7b
+
+.asm_8c28
+        ld [hli], a
+        ld a, $0
+        ld [hli], a
+        ret
+; 0x8c2d
+
+Function8c2d:
+        push de
+        push hl
+        ld hl, $dc91
+        ld a, [$dc90]
+        ld e, a
+        add $a
+        ld [$dc90], a
+        add hl, de
+        ld e, l
+        ld d, h
+        pop hl
+        ld a, [$ffcf]
+        ld [hli], a
+        ld [de], a
+        inc de
+        ld a, [$ffd0]
+        ld [hli], a
+        ld [de], a
+        inc de
+        ld a, $81
+        ld [hli], a
+        ld [de], a
+        inc de
+        ld a, [$dba5]
+        and a
+        jr z, .asm_8c7d
+        ld a, $4
+        ld [hli], a
+        ld a, $6
+        ld [hli], a
+        ld a, $5
+        ld [de], a
+        inc de
+        ld [de], a
+        inc de
+        ld a, [$ffcf]
+        ld [hli], a
+        ld [de], a
+        inc de
+        ld a, [$ffd0]
+        inc a
+        ld [hli], a
+        ld [de], a
+        inc de
+        ld a, $81
+        ld [hli], a
+        ld [de], a
+        inc de
+        ld a, $5
+        ld [hli], a
+        ld a, $5
+        ld [de], a
+        inc de
+        ld [de], a
+        inc de
+        ld a, $7
+        jr .asm_8ca4
+
+.asm_8c7d
+        ld a, $6a
+        ld [hli], a
+        ld a, $7a
+        ld [hli], a
+        ld a, $3
+        ld [de], a
+        inc de
+        ld [de], a
+        inc de
+        ld a, [$ffcf]
+        ld [hli], a
+        ld [de], a
+        inc de
+        ld a, [$ffd0]
+        inc a
+        ld [hli], a
+        ld [de], a
+        inc de
+        ld a, $81
+        ld [hli], a
+        ld [de], a
+        inc de
+        ld a, $6b
+        ld [hli], a
+        ld a, $3
+        ld [de], a
+        inc de
+        ld [de], a
+        inc de
+        ld a, $7b
+
+.asm_8ca4
+        ld [hli], a
+        ld a, $0
+        ld [hli], a
+        ld [de], a
+        pop de
+        ret
+; 0x8cab
+
+Function8cab:
+        ld a, [$ffd8]
+        ld e, a
+        ld d, $0
+        ld hl, $d711
+        add hl, de
+        ld [hl], $cc
+        ld a, $82
+        call Functionb2b
+        call Function287e
+        ld hl, $d601
+        ld a, [$d600]
+        ld e, a
+        add $a
+        ld [$d600], a
+        ld d, $0
+        add hl, de
+        ld a, [$fffe]
+        and a
+        jr nz, .asm_8cd7
+        call Function8bed
+        jr .asm_8cda
+
+.asm_8cd7
+        call Function8c2d
+
+.asm_8cda
+        call Function2804
+        and $7
+        jr nz, .asm_8d38
+        ld a, [$dba5]
+        and a
+        jr nz, .asm_8cec
+        ld a, [$fff6]
+        cp $e
+        ret z
+
+.asm_8cec
+        call Function2804
+        rra
+        ld a, $2e
+        jr nc, .asm_8cf6
+        ld a, $2d
+
+.asm_8cf6
+        call Function3b7d
+        jr c, .asm_8d38
+        ld hl, $c200
+        add hl, de
+        ld a, [$ffce]
+        add $8
+        ld [hl], a
+        ld hl, $c210
+        add hl, de
+        ld a, [$ffcd]
+        add $10
+        ld [hl], a
+        ld hl, $c450
+        add hl, de
+        ld [hl], $80
+        ld hl, $c2f0
+        add hl, de
+        ld [hl], $18
+        ld hl, $c320
+        add hl, de
+        ld [hl], $20
+        ld c, e
+        ld b, d
+        ld a, $c
+        call Function3ba1
+        ld a, [$ffd7]
+        cpl
+        inc a
+        ld hl, $c250
+        add hl, bc
+        ld [hl], a
+        ld a, [$ffd8]
+        cpl
+        inc a
+        ld hl, $c240
+        add hl, bc
+        ld [hl], a
+
+.asm_8d38
+        ret
+; 0x8d39
+
+Function8d39:
+        ld a, [$c15c]
+        ld hl, $ffa2
+        or [hl]
+        ld hl, $c11c
+        or [hl]
+        ld hl, $fff9
+        or [hl]
+        jp nz, .asm_8dae
+        ld a, [$ff9e]
+        ld e, a
+        ld d, $0
+        ld hl, Unknown_8bd9
+        add hl, de
+        ld a, [$ff98]
+        add [hl]
+        sub $8
+        and $f0
+        ld [$ffce], a
+        swap a
+        ld c, a
+        ld hl, Unknown_8bdd
+        add hl, de
+        ld a, [$ff99]
+        add [hl]
+        sub $10
+        and $f0
+        ld [$ffcd], a
+        or c
+        ld e, a
+        ld [$ffd8], a
+        ld hl, $d711
+        add hl, de
+        ld a, h
+        cp $d7
+        jp nz, .asm_8dae
+        ld a, [hl]
+        ld [$ffd7], a
+        ld e, a
+        ld a, [$dba5]
+        ld d, a
+        call Function2a1d
+        cp $0
+        jr nz, .asm_8dae
+        ld a, d
+        and a
+        jr nz, .asm_8da6
+        ld a, [$ffd7]
+        cp $c
+        jr z, .asm_8dae
+        cp $d
+        jr z, .asm_8dae
+        cp $c
+        jr z, .asm_8dae
+        cp $d
+        jr z, .asm_8dae
+        cp $b9
+        jr z, .asm_8dae
+        jr .asm_8dac
+
+.asm_8da6
+        ld a, [$ffd7]
+        cp $5
+        jr nz, .asm_8dae
+
+.asm_8dac
+        and a
+        ret
+
+.asm_8dae
+        scf
+        ret
+; 0x8db0
+
+Function8db0:
+        ld a, [$ffd7]
+        ld [$ffce], a
+        swap a
+        and $f
+        ld e, a
+        ld a, [$ffd8]
+        ld [$ffcd], a
+        and $f0
+        or e
+        ld e, a
+        ld d, $0
+        ld hl, $d711
+        add hl, de
+        ld [hl], $ae
+        call Function287e
+        ld a, [$fffe]
+        and a
+        jr z, .asm_8de4
+        push bc
+        ld c, $ae
+        ld b, $0
+        sla c
+        rl b
+        sla c
+        rl b
+        ld a, $2
+        call Function929
+        pop bc
+
+.asm_8de4
+        ld hl, $d601
+        ld a, [$d600]
+        ld e, a
+        add $a
+        ld [$d600], a
+        ld d, $0
+        add hl, de
+        ld a, [$ffcf]
+        ld [hli], a
+        ld a, [$ffd0]
+        ld [hli], a
+        ld a, $81
+        ld [hli], a
+        ld a, $76
+        ld [hli], a
+        ld a, $77
+        ld [hli], a
+        ld a, [$ffcf]
+        ld [hli], a
+        ld a, [$ffd0]
+        inc a
+        ld [hli], a
+        ld a, $81
+        ld [hli], a
+        ld a, $76
+        ld [hli], a
+        ld a, $77
+        ld [hli], a
+        ld [hl], $0
+        ret
+; 0x8e15
+
+INCBIN "baserom.gbc", 16384*2+$e15, $1300-$e15
+
+Unknown_9300:
+    db $0d, $f3, $00, $ff, $08, $f8, $0c, $f5
+Unknown_9308:
+    db $00, $00, $f3, $0e, $f3, $f3, $fc, $00
+Unknown_9310:
+    db $06, $08, $08, $06, $04, $ff, $ff, $04, $04, $ff, $ff, $04, $06, $08, $08, $06
+Unknown_9320:
+    db $02, $02, $22, $22, $22, $02, $02, $42, $22, $02, $02, $22, $02, $02, $22, $22
+
+Function9330:
+        ld a, [$c19b]
+        and $7f
+        cp $8
+        ld a, [$ff9e]
+        jr c, .asm_933d
+        add $4
+
+.asm_933d
+        ld e, a
+        ld d, $0
+        ld hl, Unknown_9308
+        add hl, de
+        ld a, [hl]
+        ld [$ffd7], a
+        ld hl, Unknown_9300
+        add hl, de
+        ld a, [hl]
+        ld [$ffd8], a
+        sla e
+        ld hl, Unknown_9310
+        add hl, de
+        ld a, [hli]
+        ld [$ffd9], a
+        ld a, [hl]
+        ld [$ffda], a
+        ld hl, Unknown_9320
+        add hl, de
+        ld a, [hli]
+        ld [$ffdb], a
+        ld a, [hl]
+        ld [$ffdc], a
+        ld de, $c010
+        ld bc, $c014
+        ld a, [$c145]
+        ld hl, $c13b
+        add [hl]
+        ld hl, $ffd7
+        add [hl]
+        ld [hl], a
+        ld a, [$ffd9]
+        cp $ff
+        jr z, .asm_937e
+        ld a, [hl]
+        ld [de], a
+
+.asm_937e
+        ld a, [$ffda]
+        cp $ff
+        jr z, .asm_9386
+        ld a, [hl]
+        ld [bc], a
+
+.asm_9386
+        inc de
+        inc bc
+        ld a, [$ffd8]
+        ld hl, $ff98
+        add [hl]
+        ld [de], a
+        add $8
+        ld [bc], a
+        inc de
+        inc bc
+        ld a, [$ffd9]
+        ld [de], a
+        ld a, [$ffda]
+        ld [bc], a
+        inc de
+        inc bc
+        ld a, [$ffdb]
+        ld [de], a
+        ld a, [$ffdc]
+        ld [bc], a
+        ret
+; 0x93a3
+
+Unknown_93a3:
+    db $04, $fc, $fc, $04
+Unknown_93a7:
+    db $04, $04, $fc, $04
+
+Function93ab:
+        ld a, [$ff9e]
+        ld c, a
+        ld b, $0
+        ld hl, Unknown_93a3
+        add hl, bc
+        ld a, [$ff98]
+        add [hl]
+        ld hl, $c200
+        add hl, de
+        ld [hl], a
+        ld hl, Unknown_93a7
+        add hl, bc
+        ld a, [$ff99]
+        add [hl]
+        ld hl, $c210
+        add hl, de
+        ld [hl], a
+        ld hl, $c3b0
+        add hl, de
+        ld [hl], d
+        jp Function140e
+; 0x93d0
 
 Function93d0:
         push bc
@@ -355,7 +1936,19 @@ Function9915:
         ret
 ; 0x9946
 
-INCBIN "baserom.gbc", 16384*2+$1946, $1bbf-$1946
+INCBIN "baserom.gbc", 16384*2+$1946, $1948-$1946
+
+Function9948:
+        ld [$ffd8], a
+        ld a, [$ff98]
+        ld [$ffd7], a
+        ld a, $e
+        ld [$fff2], a
+        ld a, $1
+        jp Functioncc3
+; 0x9957
+
+INCBIN "baserom.gbc", 16384*2+$1957, $1bbf-$1957
 
 
 Function9bbf:
@@ -673,7 +2266,15 @@ Functiona72a:
         ret
 ; 0xa801
 
-INCBIN "baserom.gbc", 16384*2+$2801, $2b73-$2801
+INCBIN "baserom.gbc", 16384*2+$2801, $28cd-$2801
+
+Unknown_a8cd:
+
+INCBIN "baserom.gbc", 16384*2+$28cd, $28d3-$28cd
+
+Functiona8d3: ; todo
+
+INCBIN "baserom.gbc", 16384*2+$28d3, $2b73-$28d3
 
 Unknown_ab73:
 INCBIN "baserom.gbc", 16384*2+$2b73, $2b78-$2b73
@@ -2145,7 +3746,151 @@ Funcionb549:
         jp Function178d
 ; 0xb54f
 
-INCBIN "baserom.gbc", 16384*2+$354f, $363a-$354f
+Unknown_b54f:
+    db $08, $f8, $00, $00
+Unknown_b553:
+    db $00, $00, $f8, $08
+
+Functionb557:
+        ld a, [$ff98]
+        and $f0
+        ld [$ffd7], a
+        swap a
+        ld e, a
+        ld a, [$ff99]
+        sub $4
+        and $f0
+        ld [$ffd8], a
+        or e
+        ld e, a
+        ld [$fffa], a
+        ld d, $0
+        ld hl, $d711
+        ld a, h
+        add hl, de
+        ld h, a
+        ld a, [$dba5]
+        ld d, a
+        ld a, [hl]
+        ld [$ffb8], a
+        ld [$ffaf], a
+        ld e, a
+        ret
+; 0xb57f
+
+Functionb57f:
+        ld a, [$c11c]
+        cp $1
+        jr nz, .asm_b58e
+        ld a, [$c13b]
+        add $4
+        ld [$c13b], a
+
+.asm_b58e
+        ld a, [$c1a4]
+        and a
+        jr z, Functionb5cc
+        ld hl, $c146
+        ld a, [$c14a]
+        or [hl]
+        jr nz, Functionb5a0
+        call Function178d
+
+Functionb5a0:
+        call Functionb557
+        ld c, $4
+        ld a, [$d463]
+        cp $1
+        jr z, .asm_b5c7
+        ld c, $fc
+        ld a, [$d6f9]
+        and a
+        jr nz, .asm_b5c7
+        call Function2a1d
+        ld c, $2
+        cp $5
+        jr z, .asm_b5c7
+        cp $9
+        jr z, .asm_b5c7
+        cp $8
+        jr nz, .asm_b5cb
+        ld c, $fd
+
+.asm_b5c7
+        ld a, c
+        ld [$c13b], a
+
+.asm_b5cb
+        ret
+; 0xb5cc
+
+Functionb5cc:
+        ld a, [$fffa]
+        ld [$fffb], a
+        ld a, [$c17b]
+        and a
+        ret nz
+        ld a, [$ffa2]
+        and a
+        jr z, .asm_b5f7
+        ld a, [$ffe7]
+        and $1
+        jr nz, .asm_b5f6
+        ld hl, $c000
+        ld a, [$ff99]
+        add $b
+        cp $88
+        jr nc, .asm_b5f6
+        ld [hli], a
+        ld a, [$ff98]
+        add $4
+        ld [hli], a
+        ld a, $26
+        ld [hli], a
+        ld [hl], $0
+
+.asm_b5f6
+        ret
+
+.asm_b5f7
+        xor a
+        ld [$d475], a
+        ld a, [$c11c]
+        cp $2
+        jr z, .asm_b5f6
+
+asm_b602
+        ld a, [$c124]
+        ld hl, $c19f
+        or [hl]
+        jp nz, Functionb705
+        call Functionb557
+        ld c, a
+        ld a, [$dba5]
+        and a
+        jr nz, .asm_b61e
+        ld a, c
+        cp $61
+        jp z, Functionb6ef
+        jr .asm_b62c
+
+.asm_b61e
+        ld a, c
+        cp $4c
+        jr nz, .asm_b62c
+        ld a, [$ff99]
+        dec a
+        and $f
+        cp $c
+        jr nc, Functionb63a
+
+.asm_b62c
+        call Function2a1d
+        ld [$c181], a
+        and a
+        jp z, Functionb7fd
+        cp $e0
+        jr nz, Functionb67a
 
 Functionb63a:
         ld a, [$dbc7]
@@ -2186,8 +3931,512 @@ Functionb63a:
         ret
 ; 0xb67a
 
-INCBIN "baserom.gbc", 16384*2+$367a, $38d6-$367a
+Functionb67a:
+        ld a, [$c181]
+        cp $ff
+        jp z, Functionb7fd
+        cp $f0
+        jr c, .asm_b689
+        jp Functionbc67
+
+.asm_b689
+        cp $51
+        jr z, .asm_b691
+        cp $50
+        jr nz, Functionb705
+
+.asm_b691
+        call Functioncab
+        ld a, $7
+        ld [$c11f], a
+        ld hl, $c1bb
+        inc [hl]
+        ld hl, $c17b
+        ld a, [$ffe7]
+        and $3
+        or [hl]
+        jr nz, asm_b704
+        ld a, [$ff98]
+        sub $8
+        ld hl, $ffd7
+        sub [hl]
+        bit 7, a
+        ld a, $ff
+        jr z, .asm_b6b7
+        ld a, $1
+
+.asm_b6b7
+        ld hl, $ff98
+        add [hl]
+        ld [hl], a
+        ld a, [$ffd8]
+        add $10
+        ld hl, $ff99
+        sub [hl]
+        bit 7, a
+        ld a, $ff
+        jr nz, .asm_b6cc
+        ld a, $1
+
+.asm_b6cc
+        ld hl, $ff99
+        add [hl]
+        ld [hl], a
+        ld a, [$ff98]
+        sub $8
+        add $2
+        and $f
+        cp $4
+        jr nc, asm_b704
+        ld a, [$ff99]
+        sub $10
+        add $2
+        and $f
+        cp $4
+        jr nc, asm_b704
+        ld a, [$ff99]
+        add $3
+        ld [$ff99], a
+
+Functionb6ef:
+        ld a, $6
+        ld [$c11c], a
+        call Functioncab
+        ld [$c198], a
+        ld a, [$c181]
+        ld [$dbcb], a
+        ld a, $c
+        ld [$fff3], a
+asm_b704
+        ret
+; 0xb705
+
+Functionb705:
+        ld hl, $c000
+        ld a, [$c181]
+        cp $8
+        jr nz, .asm_b71a
+        ld a, [$c13b]
+        add $fd
+        ld [$c13b], a
+        jp Functionb7fd
+
+.asm_b71a
+        cp $9
+        jr nz, .asm_b729
+        ld a, [$c13b]
+        add $2
+        ld [$c13b], a
+        jp Functionb7fd
+
+.asm_b729
+        cp $b
+        jr z, .asm_b731
+        cp $7
+        jr nz, .asm_b796
+
+.asm_b731
+        ld a, [$ffb2]
+        and a
+        jr z, .asm_b739
+        jp Functionbca3
+
+.asm_b739
+        ld a, [$c1ad]
+        cp $80
+        jr z, .asm_b796
+        ld a, [$c11c]
+        cp $8
+        jr z, .asm_b795
+        cp $1
+        jr z, .asm_b795
+        ld a, [$ff99]
+        add $fe
+        call Function9948
+        ld a, [$ffaf]
+        cp $6
+        jr z, .asm_b75e
+        ld a, [$db0c]
+        and a
+        jr nz, .asm_b777
+
+.asm_b75e
+        ld a, $50
+        ld [$ffb7], a
+        ld a, $8
+        ld [$c11c], a
+        ld a, [$ffaf]
+        ld [$ff9c], a
+        ld a, [$ff99]
+        add $2
+        ld [$ff99], a
+        ld a, $1
+        ld [$c167], a
+        ret
+
+.asm_b777
+        ld a, $1
+        ld [$c11c], a
+        xor a
+        ld [$ff9c], a
+        call Function178d
+        ld a, [$ff9e]
+        ld e, a
+        ld d, $0
+        ld hl, Unknown_b54f
+        add hl, de
+        ld a, [hl]
+        ld [$ff9a], a
+        ld hl, Unknown_b553
+        add hl, de
+        ld a, [hl]
+        ld [$ff9b], a
+
+.asm_b795
+        ret
+
+.asm_b796
+        cp $6
+        jp z, Functionb8d8
+        cp $5
+        jr nz, Functionb7fd
+        ld a, [$ff99]
+        add $c
+        ld [hli], a
+        ld a, [$ff98]
+        add $0
+        ld [hli], a
+        ld a, $1c
+        ld [hli], a
+        ld a, [$fffe]
+        and a
+        jr z, .asm_b7bb
+        ld a, [$ffe7]
+        and $4
+        srl a
+        add $3
+        jr .asm_b7c1
+
+.asm_b7bb
+        ld a, [$ffe7]
+        rla
+        rla
+        and $10
+
+.asm_b7c1
+        push af
+        ld [hli], a
+        ld a, [$ff99]
+        add $c
+        ld [hli], a
+        ld a, [$ff98]
+        add $8
+        ld [hli], a
+        ld a, $1c
+        ld [hli], a
+        pop af
+        or $20
+        ld [hl], a
+        ld a, $3
+        ld [$c11f], a
+        ld a, [$ffe7]
+        and $f
+        jr nz, .asm_b7f5
+        ld a, [$ffcb]
+        and $f
+        jr z, .asm_b7f5
+        ld a, [$c19f]
+        and a
+        jr nz, .asm_b7f5
+        ld a, [$ff9d]
+        cp $6c
+        jr z, .asm_b7f5
+        ld a, $e
+        ld [$fff2], a
+
+.asm_b7f5
+        ld a, [$c13b]
+        add $2
+        ld [$c13b], a
+
+Functionb7fd:
+        xor a
+        ld [$c1bb], a
+        ld a, [$c11c]
+        cp $1
+        jr nz, .asm_b80d
+        ld a, $0
+        ld [$c11c], a
+
+.asm_b80d
+        ld a, [$c181]
+        cp $4
+        jr nz, .asm_b844
+        ld a, [$ffaf]
+        cp $db
+        jr c, .asm_b844
+        cp $dd
+        jr nc, .asm_b844
+        sub $db
+        ld e, a
+        ld d, $0
+        ld hl, Unknown_b8d6
+        add hl, de
+        ld a, [$d6fb]
+        xor [hl]
+        jr z, .asm_b844
+        ld a, [$d6f8]
+        ld e, a
+        ld d, $0
+        ld hl, Unknown_b8ca
+        add hl, de
+        ld a, [$c13b]
+        add [hl]
+        ld [$c13b], a
+        ld a, $1
+        ld [$d6f9], a
+        ret
+
+.asm_b844
+        ld a, [$d6f9]
+        and a
+        jr z, .asm_b852
+        ld a, $7
+        ld [$fff4], a
+        xor a
+        ld [$d6f9], a
+
+.asm_b852
+        ld a, [$dba5]
+        and a
+        jp z, .asm_b8c9
+        ld a, [$c124]
+        and a
+        jr nz, .asm_b8c9
+        ld a, [$ffaf]
+        cp $aa
+        jr nz, .asm_b897
+        ld a, [$c1cb]
+        and a
+        jr nz, .asm_b897
+        ld a, [$c1ca]
+        inc a
+        ld [$c1ca], a
+        cp $18
+        jr nz, .asm_b88e
+        ld a, $60
+        ld [$c1cb], a
+        ld a, $e
+        ld [$fff3], a
+        ld a, $3
+        ld [$ffa5], a
+        ld a, [$fff6]
+        cp $c3
+        jr nz, .asm_b88e
+        ld hl, $d879
+        set 4, [hl]
+
+.asm_b88e
+        ld a, [$c13b]
+        add $fd
+        ld [$c13b], a
+        ret
+
+.asm_b897
+        xor a
+        ld [$c1ca], a
+        ld a, [$fffa]
+        ld hl, $fffb
+        cp [hl]
+        ld hl, $c1c9
+        jr nz, .asm_b8c7
+        ld a, [$ffaf]
+        cp $df
+        jr nz, .asm_b8c7
+        ld a, [$ffa1]
+        ld e, a
+        ld a, [$c1a9]
+        ld d, a
+        ld a, [$c19f]
+        or e
+        or d
+        jr nz, .asm_b8c7
+        inc [hl]
+        ld a, [hl]
+        cp $28
+        jr c, .asm_b8c9
+        ld a, $2b
+        ld [$fff4], a
+        jp Function8db0
+
+.asm_b8c7
+        ld [hl], $0
+
+.asm_b8c9
+        ret
+; 0xb8ca
+
+Unknown_b8ca:
+INCBIN "baserom.gbc", 16384*2+$38ca, $38d6-$38ca
 
 Unknown_b8d6:
 
-INCBIN "baserom.gbc", 16384*2+$38d6, $4000-$38d6
+INCBIN "baserom.gbc", 16384*2+$38d6, $38d8-$38d6
+
+Functionb8d8:
+        ld a, [$ff99]
+        add $8
+        ld [hli], a
+        ld a, [$ff98]
+        add $ff
+        ld [hli], a
+        ld a, $1a
+        ld [hli], a
+        ld a, [$c120]
+        rla
+        rla
+        and $20
+        push af
+        push af
+        ld a, [$fffe]
+        and a
+        jr z, .asm_b904
+        ld a, [$dba5]
+        and a
+        jr nz, .asm_b904
+        ld a, [$fff6]
+        cp $32
+        jr nz, .asm_b904
+        pop af
+        or $6
+        jr .asm_b905
+
+.asm_b904
+        pop af
+
+.asm_b905
+        ld [hli], a
+        ld a, [$ff99]
+        add $8
+        ld [hli], a
+        ld a, [$ff98]
+        add $7
+        ld [hli], a
+        ld a, $1a
+        ld [hli], a
+        ld a, [$fffe]
+        and a
+        jr z, .asm_b929
+        ld a, [$dba5]
+        and a
+        jr nz, .asm_b929
+        ld a, [$fff6]
+        cp $32
+        jr nz, .asm_b929
+        pop af
+        or $6
+        jr .asm_b92a
+
+.asm_b929
+        pop af
+
+.asm_b92a
+        xor $20
+        ld [hl], a
+        ld a, $3
+        ld [$c11f], a
+        ret
+; 0xb933
+
+INCBIN "baserom.gbc", 16384*2+$3933, $3c57-$3933
+
+Unknown_bc57:
+INCBIN "baserom.gbc", 16384*2+$3c57, $3c5f-$3c57
+
+Unknown_bc5f:
+INCBIN "baserom.gbc", 16384*2+$3c5f, $3c67-$3c5f
+
+Functionbc67:
+        ld a, [$ffe7]
+        and $3
+        ld hl, $c167
+        or [hl]
+        ld hl, $ffa1
+        or [hl]
+        ld hl, $c1a9
+        or [hl]
+        ret nz
+        ld a, [$c181]
+        sub $f0
+        ld e, a
+        ld d, $0
+        ld hl, Unknown_bc57
+        add hl, de
+        ld a, [$ff98]
+        add [hl]
+        ld [$ff98], a
+        ld hl, Unknown_bc5f
+        add hl, de
+        ld a, [$ff99]
+        add [hl]
+        ld [$ff99], a
+        ret
+; 0xbc93
+
+Unknown_bc93:
+INCBIN "baserom.gbc", 16384*2+$3c93, $3c9b-$3c93
+
+Unknown_bc9b:
+INCBIN "baserom.gbc", 16384*2+$3c9b, $3ca3-$3c9b
+
+Functionbca3:
+        ld a, [$ffe7]
+        and $0
+        ld hl, $c124
+        or [hl]
+        ld hl, $c1a9
+        or [hl]
+        ld hl, $ffa1
+        or [hl]
+        ld hl, $c19f
+        or [hl]
+        ld hl, $c14f
+        or [hl]
+        ret nz
+        ld e, $1
+        ld a, [$ffaf]
+        cp $e
+        jr nz, .asm_bcdb
+        ld a, [$fff6]
+        cp $3e
+        jr z, .asm_bcde
+        inc e
+        cp $3d
+        jr z, .asm_bcde
+        inc e
+        cp $3c
+        jr z, .asm_bcde
+        cp $3f
+        ret nz
+        ld e, $0
+        jr .asm_bcde
+
+.asm_bcdb
+        sub $e7
+        ld e, a
+
+.asm_bcde
+        ld d, $0
+        ld hl, Unknown_bc93
+        add hl, de
+        ld a, [hl]
+        ld [$ff9a], a
+        ld hl, Unknown_bc9b
+        add hl, de
+        ld a, [hl]
+        ld [$ff9b], a
+        call Function219f
+        jp Functionae67
+; 0xbcf4
+
+INCBIN "baserom.gbc", 16384*2+$3cf4, $4000-$3cf4

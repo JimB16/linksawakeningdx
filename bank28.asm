@@ -710,24 +710,23 @@ SECTION "bank28", ROMX, BANK[$1c]
 ; 0x70561
 
 
-INCBIN "baserom.gbc", 16384*28+$561, $a18-$561
+INCBIN "baserom.gbc", 16384*28+$561, $641-$561
 
+Unknown_70641:
+INCBIN "baserom.gbc", 16384*28+$641, $741-$641
+
+Unknown_70741:
+
+INCBIN "baserom.gbc", 16384*28+$741, $a18-$741
 
 Unknown_70a18:
         db $61, $41, $81, $21, $a1, $81, $61, $a1, $41, $c1
 ; 0x70a22
 
 Unknown_70a22:        
-        sbc b
-        sbc b
-        sbc b
-        sbc b
-        sbc b
-        sbc c
-        sbc c
-        sbc c
-        sbc c
-        sbc c
+    db $98, $98, $98, $98, $98, $99, $99, $99, $99, $99
+
+Function70a2c:
         ld a, [$c19f]
         ld c, a
         ld a, [$c16f]

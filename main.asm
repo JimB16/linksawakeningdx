@@ -133,9 +133,9 @@ SECTION "bank35", ROMX, BANK[35]
 
 INCBIN "baserom.gbc", 16384*35, 16384
 
-SECTION "bank36", ROMX, BANK[36]
 
-INCBIN "baserom.gbc", 16384*36, 16384
+INCLUDE "bank36.asm"
+
 
 SECTION "bank37", ROMX, BANK[37]
 

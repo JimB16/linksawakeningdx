@@ -101,11 +101,432 @@ Unknown_50916:
 
 ScreenTemplateData: ; 0x50917
 
-INCBIN "baserom.gbc", 16384*20+$917, $df1-$917
+INCBIN "baserom.gbc", 16384*20+$917, $aad-$917
+
+Unknown_50aad:
+    db $23, $23, $23, $18, $20, $28, $30, $38, $40, $48, $50, $58, $60, $68, $70
+
+Function50abc:
+        ld a, [$d462]
+        and a
+        jr z, .asm_50acc
+        dec a
+        ld [$d462], a
+        jr nz, .asm_50acc
+        ld a, $1b
+        ld [$fff3], a
+
+.asm_50acc
+        ld a, [$c502]
+        and a
+        jr z, .asm_50ad6
+        dec a
+        ld [$c502], a
+
+.asm_50ad6
+        ld a, [$c5af]
+        and a
+        jr z, .asm_50ae7
+        dec a
+        ld [$c5af], a
+        jr nz, .asm_50ae7
+        ld a, [$ffbf]
+        ld [$d368], a
+
+.asm_50ae7
+        ld a, [$dba5]
+        and a
+        jr nz, .asm_50b0c
+        ld a, [$fff6]
+        ld [$db54], a
+        ld a, [$fff6]
+        cp $f0
+        jr c, .asm_50b0c
+        cp $f6
+        jr nc, .asm_50b0c
+        ld a, [$c114]
+        inc a
+        cp $a0
+        jr nz, .asm_50b09
+        ld a, $f
+        ld [$fff4], a
+        xor a
+
+.asm_50b09
+        ld [$c114], a
+
+.asm_50b0c
+        ld a, [$db5b]
+        ld e, a
+        ld d, b
+        ld hl, Unknown_50aad
+        add hl, de
+        ld a, [$db5a]
+        cp [hl]
+        ld a, $0
+        jr nz, .asm_50b1e
+        inc a
+
+.asm_50b1e
+        ld [$c5a9], a
+        ld a, [$c5ac]
+        inc a
+        cp $1a
+        jr nz, .asm_50b2a
+        xor a
+
+.asm_50b2a
+        ld [$c5ac], a
+        ld a, [$ffe7]
+        and $3f
+        jr nz, .asm_50b3e
+        ld a, [$db47]
+        cp $ff
+        jr z, .asm_50b3e
+        inc a
+        ld [$db47], a
+
+.asm_50b3e
+        ld a, [$d464]
+        and a
+        ret z
+        ld a, [$fffe]
+        and a
+        jr z, .asm_50b4d
+        call $4bef
+        jr .asm_50b5a
+
+.asm_50b4d
+        ld a, $e4
+        ld [$db97], a
+        ld [$db99], a
+        ld a, $1c
+        ld [$db98], a
+
+.asm_50b5a
+        ld hl, $d464
+        dec [hl]
+        ret z
+        ld a, [hl]
+        ld hl, $c155
+        ld [hl], b
+        cp $20
+        jr c, .asm_50b8e
+        rla
+        nop
+        nop
+        nop
+        and $4
+        sub $2
+        ld [$c155], a
+        ld a, [$fffe]
+        and a
+        jr z, .asm_50b7d
+        call $4ba7
+        jr .asm_50b8a
+
+.asm_50b7d
+        ld a, $cc
+        ld [$db97], a
+        ld [$db99], a
+        ld a, $c
+        ld [$db98], a
+
+.asm_50b8a
+        ld a, $2
+        ld [$ffa1], a
+
+.asm_50b8e
+        ret
+; 0x50b8f
+
+INCBIN "baserom.gbc", 16384*20+$b8f, $c40-$b8f
+
+Unknown_50c40:
+    db $00, $00, $00, $01, $01, $00, $00, $00, $00, $00, $00
+
+Function50c4b:
+        ld a, [$db96]
+        cp $7
+        ret nz
+        ld a, [$c16b]
+        cp $4
+        ret nz
+        ld a, [$c3cb]
+        and a
+        jr z, .asm_50cb1
+        xor a
+        ld [$ffd7], a
+        ld d, a
+        ld a, [$c11c]
+        ld e, a
+        ld hl, Unknown_50c40
+        add hl, de
+        ld a, [hl]
+        and a
+        jr nz, .asm_50cb1
+        ld a, [$db9a]
+        cp $0
+        jr z, .asm_50c82
+        ld hl, $c17f
+        ld a, [$c19f]
+        or [hl]
+        jr nz, .asm_50c82
+        ld a, [$c3cd]
+        ld [$ffd7], a
+
+.asm_50c82
+        ld a, [$c3cc]
+        ld e, a
+        ld a, [$ffe7]
+        and $3
+        add e
+        ld e, a
+        ld hl, $4c20
+        add hl, de
+        ld a, [hl]
+        ld [$db97], a
+        ld [$c5ad], a
+        ld a, [$fffe]
+        and a
+        jr nz, .asm_50cb2
+        ld a, [$ffe7]
+        and $1
+        jr nz, .asm_50cb1
+        ld a, [$ffd7]
+        ld hl, $c3cc
+        sub [hl]
+        jr z, .asm_50cb1
+        and $80
+        jr nz, .asm_50cb0
+        inc [hl]
+        inc [hl]
+
+.asm_50cb0
+        dec [hl]
+
+.asm_50cb1
+        ret
+
+.asm_50cb2
+        ld hl, $c17f
+        ld a, [$c19f]
+        or [hl]
+        ret nz
+        ld a, [$ffd7]
+        ld hl, $c3cc
+        sub [hl]
+        jr nz, .asm_50cc7
+        ld a, [$ddd6]
+        and a
+        ret z
+
+.asm_50cc7
+        ld a, [$c11c]
+        cp $0
+        ret nz
+        ld a, [$c125]
+        cp $4
+        jr nz, .asm_50cdf
+        ld a, [$c3cd]
+        ld [$c3cc], a
+        xor a
+        ld [$c125], a
+        ret
+
+.asm_50cdf
+        ld a, [$ddd7]
+        dec a
+        ld [$ddd7], a
+        jr z, .asm_50ceb
+        cp $1
+        ret nz
+
+.asm_50ceb
+        ld a, [$ddd6]
+        and $80
+        jr nz, .asm_50d0b
+        ld a, [$ddd7]
+        and a
+        jr z, .asm_50d22
+        ld a, [hl]
+        and $6
+        jr z, .asm_50d01
+        dec [hl]
+        dec [hl]
+        jr .asm_50d22
+
+.asm_50d01
+        ld a, [$c3cc]
+        sub $4
+        ld [$c3cc], a
+        jr .asm_50d22
+
+.asm_50d0b
+        ld a, [$ddd7]
+        and a
+        jr z, .asm_50d22
+        ld a, [hl]
+        and $4
+        jr nz, .asm_50d1a
+        inc [hl]
+        inc [hl]
+        jr .asm_50d22
+
+.asm_50d1a
+        ld a, [$c3cc]
+        add $4
+        ld [$c3cc], a
+
+.asm_50d22
+        ld a, [$c3cd]
+        cp [hl]
+        jr nz, .asm_50d32
+        ld a, [$ddd7]
+        and a
+        jr nz, .asm_50d32
+        xor a
+        ld [$ddd6], a
+
+.asm_50d32
+        ld a, [$ddd7]
+        and a
+        jr z, .asm_50d4a
+        ld hl, $de01
+        ld a, $21
+        ld [hli], a
+        ld a, $53
+        ld [hli], a
+        ld a, $55
+        ld [hli], a
+        ld a, $14
+        ld [hl], a
+        call Functionbd3
+
+.asm_50d4a
+        ld a, [$ddd7]
+        xor $1
+        swap a
+        ld [$ddd3], a
+        ld a, $10
+        ld [$ddd4], a
+        ld a, $81
+        ld [$ddd1], a
+        ld a, [$ddd7]
+        and a
+        ret nz
+        ld a, [$fff7]
+        cp $7
+        jr nz, .asm_50d6d
+        ld a, $a
+        jr .asm_50d6f
+
+.asm_50d6d
+        ld a, $b
+
+.asm_50d6f
+        ld [$ddd7], a
+        ret
+; 0x50d73
+
+Function50d73:
+        xor a
+        ld [$ffbe], a
+        ld [$fff5], a
+        ld a, [$db95]
+        cp $7
+        jr z, .asm_50ded
+        cp $1
+        jr z, .asm_50d97
+        cp $b
+        jr nz, .asm_50ded
+        ld a, [$c16b]
+        cp $4
+        jr z, .asm_50d97
+        ld hl, $c3a0
+        add hl, bc
+        ld a, [hl]
+        cp $83
+        jr nz, .asm_50ded
+
+.asm_50d97
+        ld a, [$c124]
+        ld hl, $c14f
+        or [hl]
+        ld hl, $c19f
+        or [hl]
+        ld hl, $c166
+        or [hl]
+        jr nz, .asm_50ded
+        ld hl, $c2e0
+        add hl, bc
+        ld a, [hl]
+        and a
+        jr z, .asm_50db1
+        dec [hl]
+
+.asm_50db1
+        ld hl, $c2f0
+        add hl, bc
+        ld a, [hl]
+        and a
+        jr z, .asm_50dba
+        dec [hl]
+
+.asm_50dba
+        ld hl, $c300
+        add hl, bc
+        ld a, [hl]
+        and a
+        jr z, .asm_50dc3
+        dec [hl]
+
+.asm_50dc3
+        ld hl, $c480
+        add hl, bc
+        ld a, [hl]
+        and a
+        jr z, .asm_50dcc
+        dec [hl]
+
+.asm_50dcc
+        ld a, [$ffe7]
+        and $3
+        jr nz, .asm_50ddb
+        ld hl, $c450
+        add hl, bc
+        ld a, [hl]
+        and a
+        jr z, .asm_50ddb
+        dec [hl]
+
+.asm_50ddb
+        ld hl, $c420
+        add hl, bc
+        ld a, [hl]
+        and a
+        jr z, .asm_50de4
+        dec [hl]
+
+.asm_50de4
+        sla a
+        sla a
+        and $10
+        ld [$ffed], a
+        ret
+
+.asm_50ded
+        xor a
+        ld [$ffed], a
+        ret
+; 0x50df1
 
 Unknown_50df1:
 
-INCBIN "baserom.gbc", 16384*20+$df1, $e51-$df1
+INCBIN "baserom.gbc", 16384*20+$df1, $e41-$df1
+
+Unknown_50e41:
+    db $3b, $3a, $39, $3b, $3f, $3b, $39, $3b, $3b, $00, $00, $00, $00, $00, $00, $00
 
 Function50e51:
         ld a, $1
@@ -428,7 +849,66 @@ Function51344:
         ret
 ; 0x51441
 
-INCBIN "baserom.gbc", 16384*20+$1441, $14a9-$1441
+Function51441:
+        xor a
+        ld [$c19f], a
+        ret
+; 0x51446
+
+Function51446:
+        ld a, [$c3c9]
+        and a
+        jr nz, .asm_51457
+        ld a, [$c11c]
+        cp $3
+        jr z, Function51441
+        cp $4
+        jr z, Function51441
+
+.asm_51457
+        ld a, [$db95]
+        cp $1
+        jr z, .asm_5147c
+        ld a, [$c3cb]
+        and a
+        jr nz, .asm_5147c
+        ld a, [$ff9d]
+        cp $6c
+        jr z, .asm_5147c
+        ld a, $4
+        ld [$c16b], a
+        ld a, $e4
+        ld [$db97], a
+        ld [$db99], a
+        ld a, $1c
+        ld [$db98], a
+
+.asm_5147c
+        ld a, [$d601]
+        and a
+        ret nz
+        ld hl, $c19f
+        inc [hl]
+        ld a, [$fffe]
+        and a
+        ret z
+        ld a, [$db95]
+        cp $b
+        ret nz
+        ld a, [$c3cc]
+        cp $8
+        ret c
+        ld hl, $de01
+        ld a, $21
+        ld [hli], a
+        ld a, $53
+        ld [hli], a
+        ld a, $b6
+        ld [hli], a
+        ld a, $14
+        ld [$de04], a
+        jp Functionbd3
+; 0x514a9
 
 Function514a9:
         ld hl, $c17b
@@ -508,7 +988,494 @@ Function514f5:
         ret
 ; 0x51523
 
-INCBIN "baserom.gbc", 16384*20+$1523, $1835-$1523
+Function51523:
+        ld hl, $d711
+        add hl, de
+        ld a, [$ffaf]
+        cp $8e
+        jr nz, .asm_5157a
+        ld [hl], $aa
+        call Function287e
+        ld a, [$fffe]
+        and a
+        jr z, .asm_5154a
+        push bc
+        ld c, $aa
+        ld b, $0
+        sla c
+        rl b
+        sla c
+        rl b
+        ld a, $14
+        call Function929
+        pop bc
+
+.asm_5154a
+        ld hl, $d601
+        ld a, [$d600]
+        ld e, a
+        add $a
+        ld [$d600], a
+        ld d, $0
+        add hl, de
+        ld a, [$ffcf]
+        ld [hli], a
+        ld a, [$ffd0]
+        ld [hli], a
+        ld a, $81
+        ld [hli], a
+        ld a, $14
+        ld [hli], a
+        ld a, $16
+        ld [hli], a
+        ld a, [$ffcf]
+        ld [hli], a
+        ld a, [$ffd0]
+        inc a
+        ld [hli], a
+        ld a, $81
+        ld [hli], a
+        ld a, $15
+        ld [hli], a
+        ld a, $17
+        jp Function5173b
+
+.asm_5157a
+        cp $d3
+        jr nz, .asm_51581
+        jp Function51740
+
+.asm_51581
+        ld a, [$dba5]
+        and a
+        jp z, Function5162d
+        ld a, [$fff9]
+        and a
+        jr z, .asm_515e0
+        ld a, [$ffaf]
+        cp $8a
+        jr nz, .asm_515e0
+        ld [hl], $4
+        call Function287e
+        ld a, [$fffe]
+        and a
+        jr z, .asm_515b0
+        push bc
+        ld c, $4
+        ld b, $0
+        sla c
+        rl b
+        sla c
+        rl b
+        ld a, $14
+        call Function929
+        pop bc
+
+.asm_515b0
+        ld hl, $d601
+        ld a, [$d600]
+        ld e, a
+        add $a
+        ld [$d600], a
+        ld d, $0
+        add hl, de
+        ld a, [$ffcf]
+        ld [hli], a
+        ld a, [$ffd0]
+        ld [hli], a
+        ld a, $81
+        ld [hli], a
+        ld a, $7e
+        ld [hli], a
+        ld a, $7e
+        ld [hli], a
+        ld a, [$ffcf]
+        ld [hli], a
+        ld a, [$ffd0]
+        inc a
+        ld [hli], a
+        ld a, $81
+        ld [hli], a
+        ld a, $7e
+        ld [hli], a
+        ld a, $7e
+        jp Function5173b
+
+.asm_515e0
+        ld [hl], $d
+        call Function287e
+        ld a, [$fffe]
+        and a
+        jr z, .asm_515fd
+        push bc
+        ld c, $d
+        ld b, $0
+        sla c
+        rl b
+        sla c
+        rl b
+        ld a, $14
+        call Function929
+        pop bc
+
+.asm_515fd
+        ld hl, $d601
+        ld a, [$d600]
+        ld e, a
+        add $a
+        ld [$d600], a
+        ld d, $0
+        add hl, de
+        ld a, [$ffcf]
+        ld [hli], a
+        ld a, [$ffd0]
+        ld [hli], a
+        ld a, $81
+        ld [hli], a
+        ld a, $10
+        ld [hli], a
+        ld a, $12
+        ld [hli], a
+        ld a, [$ffcf]
+        ld [hli], a
+        ld a, [$ffd0]
+        inc a
+        ld [hli], a
+        ld a, $81
+        ld [hli], a
+        ld a, $11
+        ld [hli], a
+        ld a, $13
+        jp Function5173b
+; 0x5162d
+
+Function5162d:
+        ld a, [$ffaf]
+        cp $20
+        jr nz, .asm_5164b
+        ld a, [$fff6]
+        cp $52
+        jr z, .asm_5163d
+        cp $4
+        jr nz, .asm_51640
+
+.asm_5163d
+        jp $5764
+
+.asm_51640
+        cp $75
+        jr nz, .asm_5164b
+        ld a, [$fffe]
+        and a
+        jr z, .asm_51674
+        jr .asm_51670
+
+.asm_5164b
+        ld a, [$fffe]
+        and a
+        jr z, .asm_51674
+        ld a, [$fff6]
+        cp $20
+        jr c, .asm_51670
+        cp $e0
+        jr z, .asm_51670
+        cp $e1
+        jr z, .asm_51670
+        cp $e3
+        jr z, .asm_51670
+        cp $e4
+        jr z, .asm_51670
+        cp $ff
+        jr nz, .asm_51674
+        ld a, [$ffaf]
+        cp $20
+        jr z, .asm_51674
+
+.asm_51670
+        ld [hl], $3
+        jr .asm_51676
+
+.asm_51674
+        ld [hl], $4
+
+.asm_51676
+        ld a, $94
+        call Functionb2b
+        call Function287e
+        ld a, [$fffe]
+        and a
+        jr z, .asm_516c6
+        push bc
+        ld a, [$fff6]
+        cp $20
+        jr c, .asm_516b0
+        cp $e0
+        jr z, .asm_516b0
+        cp $e1
+        jr z, .asm_516b0
+        cp $e3
+        jr z, .asm_516b0
+        cp $e4
+        jr z, .asm_516b0
+        cp $ff
+        jr nz, .asm_516a6
+        ld a, [$ffaf]
+        cp $20
+        jr nz, .asm_516b0
+        jr .asm_516b4
+
+.asm_516a6
+        cp $75
+        jr nz, .asm_516b4
+        ld a, [$ffaf]
+        cp $20
+        jr nz, .asm_516b4
+
+.asm_516b0
+        ld c, $3
+        jr .asm_516b6
+
+.asm_516b4
+        ld c, $4
+
+.asm_516b6
+        ld b, $0
+        sla c
+        rl b
+        sla c
+        rl b
+        ld a, $14
+        call Function929
+        pop bc
+
+.asm_516c6
+        ld hl, $d601
+        ld a, [$d600]
+        ld e, a
+        add $a
+        ld [$d600], a
+        ld d, $0
+        add hl, de
+        ld a, [$ffcf]
+        ld [hli], a
+        ld a, [$ffd0]
+        ld [hli], a
+        ld a, $81
+        ld [hli], a
+        ld a, [$fffe]
+        and a
+        jr z, .asm_5170f
+        ld a, [$fff6]
+        cp $20
+        jr c, .asm_51726
+        cp $e0
+        jr z, .asm_51726
+        cp $e1
+        jr z, .asm_51726
+        cp $e3
+        jr z, .asm_51726
+        cp $e4
+        jr z, .asm_51726
+        cp $ff
+        jr nz, .asm_51705
+        ld a, [$ffaf]
+        cp $20
+        jr nz, .asm_51726
+        jr .asm_5170f
+
+.asm_51705
+        cp $75
+        jr nz, .asm_5170f
+        ld a, [$ffaf]
+        cp $20
+        jr z, .asm_51726
+
+.asm_5170f
+        ld a, $5a
+        ld [hli], a
+        ld a, $7f
+        ld [hli], a
+        ld a, [$ffcf]
+        ld [hli], a
+        ld a, [$ffd0]
+        inc a
+        ld [hli], a
+        ld a, $81
+        ld [hli], a
+        ld a, $7f
+        ld [hli], a
+        ld a, $5a
+        jr Function5173b
+
+.asm_51726
+        ld a, $76
+        ld [hli], a
+        ld a, $76
+        ld [hli], a
+        ld a, [$ffcf]
+        ld [hli], a
+        ld a, [$ffd0]
+        inc a
+        ld [hli], a
+        ld a, $81
+        ld [hli], a
+        ld a, $76
+        ld [hli], a
+        ld a, $76
+
+Function5173b:
+        ld [hli], a
+        ld a, $0
+        ld [hli], a
+        ret
+; 0x51740
+
+Function51740:
+        ld a, [$fff6]
+        cp $75
+        jr z, .asm_51753
+        cp $7
+        jr z, .asm_51753
+        cp $aa
+        jr z, .asm_51753
+        cp $4a
+        jp nz, Function517de
+
+.asm_51753
+        ld hl, $d711
+        add hl, de
+        push hl
+        ld a, [$fff6]
+        ld e, a
+        ld d, $0
+        ld hl, $d800
+        add hl, de
+        set 4, [hl]
+        pop hl
+        ld [hl], $c6
+        ld a, $94
+        call Functionb2b
+        call Function287e
+        ld a, [$fffe]
+        and a
+        jr z, .asm_51786
+        push bc
+        ld c, $c6
+        ld b, $0
+        sla c
+        rl b
+        sla c
+        rl b
+        ld a, $14
+        call Function929
+        pop bc
+
+.asm_51786
+        ld hl, $d601
+        ld a, [$d600]
+        ld e, a
+        add $a
+        ld [$d600], a
+        ld d, $0
+        add hl, de
+        ld a, [$ffcf]
+        ld [hli], a
+        ld a, [$ffd0]
+        ld [hli], a
+        ld a, $81
+        ld [hli], a
+        ld a, $68
+        ld [hli], a
+        ld a, $77
+        ld [hli], a
+        ld a, [$ffcf]
+        ld [hli], a
+        ld a, [$ffd0]
+        inc a
+        ld [hli], a
+        ld a, $81
+        ld [hli], a
+        ld a, $69
+        ld [hli], a
+        ld a, $4b
+        ld [hli], a
+        ld [hl], $0
+        ld a, $1
+        ld [$ffac], a
+        ld a, [$ffcd]
+        and $f0
+        add $10
+        ld [$ffae], a
+        ld a, [$ffce]
+        and $f0
+        add $8
+        ld [$ffad], a
+        ld a, [$ffce]
+        swap a
+        and $f
+        ld e, a
+        ld a, [$ffcd]
+        and $f0
+        or e
+        ld [$d416], a
+        ld a, $2
+        ld [$fff2], a
+        ret
+; 0x517de
+
+Function517de:
+        ld hl, $d711
+        add hl, de
+        ld [hl], $e8
+        ld a, $94
+        call Functionb2b
+        call Function287e
+        ld a, [$fffe]
+        and a
+        jr z, .asm_51804
+        push bc
+        ld c, $e8
+        ld b, $0
+        sla c
+        rl b
+        sla c
+        rl b
+        ld a, $14
+        call Function929
+        pop bc
+
+.asm_51804
+        ld hl, $d601
+        ld a, [$d600]
+        ld e, a
+        add $a
+        ld [$d600], a
+        ld d, $0
+        add hl, de
+        ld a, [$ffcf]
+        ld [hli], a
+        ld a, [$ffd0]
+        ld [hli], a
+        ld a, $81
+        ld [hli], a
+        ld a, $68
+        ld [hli], a
+        ld a, $78
+        ld [hli], a
+        ld a, [$ffcf]
+        ld [hli], a
+        ld a, [$ffd0]
+        inc a
+        ld [hli], a
+        ld a, $81
+        ld [hli], a
+        ld a, $69
+        ld [hli], a
+        ld a, $79
+        ld [hli], a
+        ld [hl], $0
+        ret
+; 0x51835
 
 Function51835:
         ld hl, Unknown_504e0
