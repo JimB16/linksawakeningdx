@@ -28,9 +28,9 @@ _Start: ; 0x150
         ld [$fffe], a
         call Function28c6
         ld sp, wdfff
-        ld a, $3c
+        ld a, BANK(Functionf2a22)
         ld [MBC5RomBank], a
-        call $6a22
+        call Functionf2a22
         xor a
         ld [rBGP], a
         ld [rOBP0], a
@@ -295,7 +295,6 @@ asm_35c:
         xor a
         ld [$fffd], a
         halt
-;        nop
 .asm_371
         ld a, [$ffd1]
         and a
@@ -5983,17 +5982,17 @@ Function2bc6:
         call ChangeROMBank_2
         ld hl, Unknown_30000
         ld de, v8000
-        ld bc, $0400
+        ld bc, Unknown_30400 - Unknown_30000 ; $0400
         call CopyBytes
         ld a, BANK(Unknown_30800)
         call ChangeROMBank_2
         ld hl, Unknown_30800
         ld de, v8800
-        ld bc, $1000
+        ld bc, Unknown_31800 - Unknown_30800 ; $1000
         call CopyBytes
         ld hl, Unknown_307a0
         ld de, v8e00
-        ld bc, $0020
+        ld bc, Unknown_307c0 - Unknown_307a0 ; $0020
         call CopyBytes
         ld a, $1
         call ChangeROMBank

@@ -229,9 +229,9 @@ SECTION "bank59", ROMX, BANK[59]
 
 INCBIN "baserom.gbc", 16384*59, 16384
 
-SECTION "bank60", ROMX, BANK[60]
 
-INCBIN "baserom.gbc", 16384*60, $2bde
+INCLUDE "bank60.asm"
+
 
 SECTION "bank61", ROMX, BANK[61]
 

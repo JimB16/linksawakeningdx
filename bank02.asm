@@ -1804,10 +1804,9 @@ Function9440:
 INCBIN "baserom.gbc", 16384*2+$1445, $181d-$1445
 
 Unknown_981d:
-INCBIN "baserom.gbc", 16384*2+$181d, $182d-$181d
-
+    db $f6, $fe, $18, $00, $f8, $0a, $18, $20, $fc, $00, $18, $00, $fe, $08, $18, $20
 Unknown_982d:
-INCBIN "baserom.gbc", 16384*2+$182d, $183d-$182d
+    db $00, $fa, $18, $00, $00, $0e, $18, $20, $02, $fc, $18, $00, $02, $0c, $18, $20
 
 Function983d:
         call Function98f0
@@ -2269,21 +2268,18 @@ Functiona72a:
 INCBIN "baserom.gbc", 16384*2+$2801, $28cd-$2801
 
 Unknown_a8cd:
-
-INCBIN "baserom.gbc", 16384*2+$28cd, $28d3-$28cd
+    db $00, $10, $f0, $ff, $00, $01
 
 Functiona8d3: ; todo
 
 INCBIN "baserom.gbc", 16384*2+$28d3, $2b73-$28d3
 
 Unknown_ab73:
-INCBIN "baserom.gbc", 16384*2+$2b73, $2b78-$2b73
-
+    db $01, $02, $04, $08, $10
 Unknown_ab78:
-INCBIN "baserom.gbc", 16384*2+$2b78, $2b7d-$2b78
-
+    db $0b, $05, $08, $08, $08
 Unknown_ab7d:
-INCBIN "baserom.gbc", 16384*2+$2b7d, $2b82-$2b7d
+    db $08, $08, $04, $10, $0b
 
 Functionab82:
         ld c, $4
@@ -2680,31 +2676,23 @@ asm_ae2e
 ; 0xae37
 
 Unknown_ae37:
-INCBIN "baserom.gbc", 16384*2+$2e37, $2e3f-$2e37
-
+    db $06, $09, $0b, $0b, $06, $09, $04, $04
 Unknown_ae3f:
-INCBIN "baserom.gbc", 16384*2+$2e3f, $2e47-$2e3f
-
+    db $06, $06, $09, $0c, $0f, $0f, $09, $0c
 Unknown_ae47:
-INCBIN "baserom.gbc", 16384*2+$2e47, $2e49-$2e47
-
+    db $04, $00
 Unknown_ae49:
-INCBIN "baserom.gbc", 16384*2+$2e49, $2e4b-$2e49
-
+    db $02, $06
 Unknown_ae4b:
-INCBIN "baserom.gbc", 16384*2+$2e4b, $2e53-$2e4b
-
+    db $01, $02, $04, $08, $01, $02, $04, $08
 Unknown_ae53:
-INCBIN "baserom.gbc", 16384*2+$2e53, $2e5b-$2e53
-
+    db $02, $02, $00, $00, $03, $03, $01, $01
 Unknown_ae5b:
-INCBIN "baserom.gbc", 16384*2+$2e5b, $2e5f-$2e5b
-
+    db $00, $01, $ff, $00
 Unknown_ae5f:
-INCBIN "baserom.gbc", 16384*2+$2e5f, $2e63-$2e5f
-
+    db $10, $f0, $00, $00
 Unknown_ae63:
-INCBIN "baserom.gbc", 16384*2+$2e63, $2e67-$2e63
+    db $00, $00, $f0, $10
 
 Functionae67:
         ld hl, $c10a
@@ -4277,11 +4265,10 @@ Functionb7fd:
 ; 0xb8ca
 
 Unknown_b8ca:
-INCBIN "baserom.gbc", 16384*2+$38ca, $38d6-$38ca
+    db $fc, $ff, $ff, $fe, $fe, $fe, $fd, $fd, $fd, $fc, $fc, $fc
 
 Unknown_b8d6:
-
-INCBIN "baserom.gbc", 16384*2+$38d6, $38d8-$38d6
+    db $00, $02
 
 Functionb8d8:
         ld a, [$ff99]
@@ -4351,10 +4338,9 @@ Functionb8d8:
 INCBIN "baserom.gbc", 16384*2+$3933, $3c57-$3933
 
 Unknown_bc57:
-INCBIN "baserom.gbc", 16384*2+$3c57, $3c5f-$3c57
-
+    db $00, $00, $ff, $01, $01, $ff, $01, $ff
 Unknown_bc5f:
-INCBIN "baserom.gbc", 16384*2+$3c5f, $3c67-$3c5f
+    db $01, $ff, $00, $00, $01, $01, $ff, $ff
 
 Functionbc67:
         ld a, [$ffe7]
@@ -4384,10 +4370,9 @@ Functionbc67:
 ; 0xbc93
 
 Unknown_bc93:
-INCBIN "baserom.gbc", 16384*2+$3c93, $3c9b-$3c93
-
+    db $fc, $fa, $f8, $f6, $0c, $00, $00, $f4
 Unknown_bc9b:
-INCBIN "baserom.gbc", 16384*2+$3c9b, $3ca3-$3c9b
+    db $00, $00, $00, $00, $00, $f4, $0c, $00
 
 Functionbca3:
         ld a, [$ffe7]
